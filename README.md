@@ -1,7 +1,7 @@
 # JRK
 JRK Kaffe APCS Team Final Project: Joseph Othman & Kosta Dubovskiy
 
-# Tentative Idea
+# Idea
 Knockout Jr.:
     Based off of the Knockout game in game pigeon on iPhones, there is a playing area(iceberg)
   where each player starts with an equal amount of players(penguins). The goal is to direct
