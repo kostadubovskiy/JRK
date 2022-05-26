@@ -2,16 +2,20 @@
 JRK Kaffe APCS Team Final Project: Joseph Othman & Kosta Dubovskiy
 
 # Tentative Idea
-Tetris: 
-  One and two-player game mode options using either wsda keys or up-down-left-right arrow 
-  keys or both in processing.
-  
+Knockout Jr.:
+    Based off of the Knockout game in game pigeon on iPhones, there is a playing area(iceberg)
+  where each player starts with an equal amount of players(penguins). The goal is to direct
+  your players into the opponents players to push them off of the iceberg. Basically, a bit like king
+  of the hill with teams.
+
+    One and two-player game mode options using mouse selection input
+
   ## Relevance
-    Data structures: 2 heaps to calculate median time-taken to place a block
+    Data structures: 2 pairs of min/max heaps to calculate median score of each player over a _ game series
                      1 heap to compare player scores in split screen mode
-                     1 or 2 randomly filled array priority queues to determine the order in
-                       which blocks come down onto the screen
+                     1 array priority queue to determine the order in which penguins are de-thawed (enabled for selection)
+                     1 queue for the order of turns
 
   ## Housing
-    It will be made with a combination of Processing for the GUI and Java classes for the backend
+    It will be made with a combination of Processing for the GUI and Java classes for the back-end
     It will be launched via terminal, by running the main.pde file.
