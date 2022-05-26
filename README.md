@@ -1,5 +1,6 @@
 # JRK
 JRK Kaffe APCS Team Final Project: Joseph Othman & Kosta Dubovskiy
+Period 7 Mr. Mykolyk
 
 # Idea
 Knockout Jr.:
