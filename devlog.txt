@@ -65,3 +65,9 @@ ______   ______   __   __   __       ______   _______
 Kosta :: Created repository/structure, designed
 Joseph :: Ideated with group, fleshed out idea of Knockout Jr
 ==============================================================
+
+2022-05-27
+--------------------------------------------------------------
+Kosta :: Planned out classes, prepared for and started on the homework due Tues. 05-31
+Joseph :: Ideated possible applications for in-class structures for the game, helped draft class overview
+==============================================================
