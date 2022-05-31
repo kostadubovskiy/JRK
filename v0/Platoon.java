@@ -1,4 +1,4 @@
-public class Platoon() {
+public class Platoon {
 
   public Platoon() {
     //make default 2 teams of 5 players each
