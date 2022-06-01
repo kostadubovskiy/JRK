@@ -86,5 +86,11 @@ through testing; preliminary coding of fp.
 
 2022-05-31
 --------------------------------------------------------------
-Kosta :: Created state diagram of gameplay, showing when the main operations will be used.
+Kosta & Joseph :: Created state diagram of gameplay, showing when the main operations will be used.
+==============================================================
+
+2022-06-01
+--------------------------------------------------------------
+Kosta :: 
+Joseph :: 
 ==============================================================
