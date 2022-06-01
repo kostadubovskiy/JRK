@@ -71,3 +71,20 @@ Joseph :: Ideated with group, fleshed out idea of Knockout Jr
 Kosta :: Planned out classes, prepared for and started on the homework due Tues. 05-31
 Joseph :: Ideated possible applications for in-class structures for the game, helped draft class overview
 ==============================================================
+
+2022-05-30
+--------------------------------------------------------------
+Kosta :: Hardcopy-ified homework due Tues. 05-31 (UML diagrams of each class)
+Joseph :: Helped finish planning stage (UML diagrams) of game, fine tuned original design of game.
+==============================================================
+
+2022-05-31 (In Class)
+--------------------------------------------------------------
+Kosta & Joseph :: Worked on Penguin class, getting exact numbers for board and instance vars
+through testing; preliminary coding of fp.
+==============================================================
+
+2022-05-31
+--------------------------------------------------------------
+Kosta :: Created state diagram of gameplay, showing when the main operations will be used.
+==============================================================
