@@ -91,6 +91,10 @@ Kosta & Joseph :: Created state diagram of gameplay, showing when the main opera
 
 2022-06-01
 --------------------------------------------------------------
-Kosta :: 
-Joseph :: 
+Kosta & Joseph :: Finished Penguin class except for launch() and bounce() methods. Continued planning launch and consulted Mr. Mykolyk for inspiration.
+==============================================================
+
+2022-06-02
+--------------------------------------------------------------
+Kosta & Joseph :: Worked further on launch() and bounce() methods, these are by far the hardest parts of the project. Consulted Processing's example ball bounce code for help and inspiration.
 ==============================================================
