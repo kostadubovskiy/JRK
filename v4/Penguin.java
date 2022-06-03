@@ -1,10 +1,11 @@
 public class Penguin {
   private int _team; //0 = red; 1 = blue;
   private double _weight = 1; //0 = no momentum; 0 < --> _weight * magnitude momentum
-  private PVector _position;
-  private PVector _velocity;
-  private float _girth;
-  private float _angle;
+  private double _xPos;
+  private double _yPos;
+  private double _girth;
+  private double _velocity = 0;
+  private double _angle;
   private boolean _sunken = false;
   private boolean _thawed = true;
   private double _distanceToDeath;
@@ -12,15 +13,11 @@ public class Penguin {
   public Penguin(int team) {
     //default peng
     _girth = 10;
-    _position.x = (float) ((700-_girth)*(Math.random()) + 150 + _girth);
-    _position.y = (float) ((700-_girth)*(Math.random()) + 150 + _girth);
+    _xPos = (700-_girth)*(Math.random()) + 150 + _girth;
+    _yPos = (700-_girth)*(Math.random()) + 150 + _girth;
     _angle = Math.random() * 2 * Math.pi;
     updateDistance();
     _team = team;
-  }
-  
-  void update() {
-    position.add(velocity);
   }
 
   private boolean updateDistance(){
