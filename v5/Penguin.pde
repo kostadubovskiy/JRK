@@ -8,13 +8,12 @@ public class Penguin {
   private boolean _thawed = true;
   private double _distanceToDeath;
   private PVector[] _neighbors;
-  private PVector tempVec;
 
   public Penguin(int team) {
     // default peng given a team to assign to
-    _radius = 30; // arbitrary choice for penguin's radius
-    _velocity = new PVector(0, 0); // new PVector((float) (Math.random() * 10), (float) (Math.random() * 10)); // start at rest
-    _position = new PVector((float) ((600-_radius)*(Math.random()) + 100 + _radius), (float) ((600-_radius)*(Math.random()) + 100 + _radius));
+    _radius = 60; // arbitrary choice for penguin's radius
+    _velocity = new PVector((float) (Math.random() * 10), (float) (Math.random() * 10)); // start at rest
+    _position = new PVector((float) ((700-_radius)*(Math.random()) + 150 + _radius), (float) ((700-_radius)*(Math.random()) + 150 + _radius));
     //_sunken = false;
     _team = team % 2;
     m = _radius*.1;
@@ -58,26 +57,21 @@ public class Penguin {
     return _distanceToDeath;
   }
   
-  public boolean setTempV(PVector newTemp) {
-     tempV = newTemp;
-     return true;
-  }
-  /*
   void checkBoundaryCollision() {
-    if (_position.x > width - 100 - _radius) {
-      _position.x = width - 100 - _radius;
+    if (_position.x > width - 150 - _radius) {
+      _position.x = width - 150 - _radius;
       _velocity.x *= -1;
-    } else if (_position.x < 100 + _radius) {
-      _position.x = 100 + _radius;
+    } else if (_position.x < _radius) {
+      _position.x = _radius;
       _velocity.x *= -1;
-    } else if (_position.y > height - 100 - _radius) {
-      _position.y = height - 100 - _radius;
+    } else if (_position.y > height - 150 - _radius) {
+      _position.y = height - 150 -_radius;
       _velocity.y *= -1;
-    } else if (_position.y < 100 + _radius) {
-      _position.y = 100 + _radius;
+    } else if (_position.y < _radius) {
+      _position.y = _radius;
       _velocity.y *= -1;
     }
-  }*/
+  }
   
   void checkCollision(Penguin other) {
 

@@ -11,17 +11,28 @@ Penguin[] pengs =  {
   new Penguin(1) 
 };
 
+Platoon[] platoons = {
+  new Platoon(0),
+  new Platoon(1)
+};
+
+Iceberg berg = new Iceberg(600, 600);
+
+boolean moveComplete = false;
+
 void setup() {
   size(800, 800);
 }
 
 void draw() {
   background(255);
-  
+  berg.update();
+  berg.display();
+  move();
   for (Penguin p : pengs) {
     p.update();
     p.display();
-    p.checkBoundaryCollision();
+    //p.checkBoundaryCollision();
   }
   
   for (int i = 0; i < pengs.length; i++) {
@@ -29,4 +40,21 @@ void draw() {
       pengs[i].checkCollision(pengs[j]);
     }
   }
+}
+
+void move() {
+  while (! moveComplete) {
+    
+    for (Platoon t : platoons) {
+      for (Penguin p : t) {
+        if(! p.getThaw()) { //if the penguin is available this turn
+          while(mouseReleased()) {
+          }
+          PVector launchVec = new PVector(mouseX, mouseY);
+          p.setTempV(launchVec);
+        }
+      }
+    }
+  }
+  moveComplete = false;
 }
