@@ -16,8 +16,8 @@ void setup() {
 }
 
 void draw() {
-  background(51);
-
+  background(255);
+  
   for (Penguin p : pengs) {
     p.update();
     p.display();

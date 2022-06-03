@@ -10,38 +10,15 @@ public class Penguin {
   private PVector[] _neighbors;
 
   public Penguin(int team) {
-    //default peng
-    _radius = 10;
-    _position.x = (float) ((700-_radius)*(Math.random()) + 150 + _radius);
-    _position.y = (float) ((700-_radius)*(Math.random()) + 150 + _radius);
-    _velocity = new PVector(0, 0); // start at rest
-    _sunken = false;
-    updateDistance();
+    // default peng given a team to assign to
+    _radius = 60; // arbitrary choice for penguin's radius
+    _velocity = new PVector((float) Math.random(), (float) Math.random()); // start at rest
+    _position = new PVector((float) ((700-_radius)*(Math.random()) + 150 + _radius), (float) ((700-_radius)*(Math.random()) + 150 + _radius));
+    //_sunken = false;
     _team = team % 2;
     m = _radius*.1;
   }
-
-  private boolean updateDistance(){
-    double xDist;
-    double yDist;
-    if (_position.x < 500) {
-      xDist = _position.x - 150;
-    }
-    else {
-      xDist = 850 - _position.x;
-    }
-    if (_position.y < 500) {
-      yDist = _position.y - 150;
-    }
-    else {
-      yDist = 850 - _position.y;
-    }
-    if (xDist < 0 || yDist < 0) {
-      _sunken = true;
-    }
-    return false;
-  }
-
+  
   public int getTeam() {
     return _team;
   }
@@ -50,11 +27,8 @@ public class Penguin {
     return _weight;
   }
 
-  public double[] getPos() {
-    double[] pos = new double[2];
-    pos[0] = _position.x;
-    pos[1] = _position.y;
-    return pos;
+  public PVector getPos() {
+    return _position;
   }
 
   public boolean sink() {
@@ -84,14 +58,14 @@ public class Penguin {
   }
   
   void checkBoundaryCollision() {
-    if (_position.x > width - _radius) {
-      _position.x = width - _radius;
+    if (_position.x > width - 150 - _radius) {
+      _position.x = width - 150 - _radius;
       _velocity.x *= -1;
     } else if (_position.x < _radius) {
       _position.x = _radius;
       _velocity.x *= -1;
-    } else if (_position.y > height - _radius) {
-      _position.y = height - _radius;
+    } else if (_position.y > height - 150 - _radius) {
+      _position.y = height - 150 -_radius;
       _velocity.y *= -1;
     } else if (_position.y < _radius) {
       _position.y = _radius;
@@ -196,15 +170,35 @@ public class Penguin {
   
   void update() {
     _position.add(_velocity);
-    if (!_sunken) {
+    if (_sunken) {
       _velocity.set(0, 0);
       _radius = 0;
     }
   }
   
   void display() {
-    noStroke();
-    fill(255 / (3 - _team));
+    fill(0);
     ellipse(_position.x, _position.y, _radius*2, _radius*2);
+  }
+  
+  private boolean updateDistance(){
+    double xDist;
+    double yDist;
+    if (_position.x < 500) {
+      xDist = _position.x - 150;
+    }
+    else {
+      xDist = 850 - _position.x;
+    }
+    if (_position.y < 500) {
+      yDist = _position.y - 150;
+    }
+    else {
+      yDist = 850 - _position.y;
+    }
+    if (xDist < 0 || yDist < 0) {
+      _sunken = true;
+    }
+    return false;
   }
 }
