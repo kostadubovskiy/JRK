@@ -19,11 +19,13 @@ public class Penguin {
     //_sunken = false;
     _team = team % 2;
     m = _radius*.1;
+    /*
+    // more non-functional color assignments
     if ( _team == 0 ){
      _peng = loadShape("BluePeng.svg"); 
     } else {
      _peng = loadShape("RedPeng.svg"); 
-    }
+    }*/
   }
   
   public int getTeam() {

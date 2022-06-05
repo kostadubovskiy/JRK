@@ -24,14 +24,18 @@ void setup() {
   size(800, 800);
   pixelDensity(2);
   
-  for(int i = 0; i < pengs.length; i++) {
+  // janky functional colors:
+  pengs[0].setPeng(loadShape("RedPeng.svg"));
+  pengs[1].setPeng(loadShape("BluePeng.svg"));
+  // non-functional penguin color assignments below :/ will do later
+  /*for(int i = 0; i < pengs.length; i++) {
     if (pengs[i].getTeam() % 2 == 0) {
       pengs[i].setPeng(loadShape("RedPeng.svg"));
     }
     else {
       pengs[i].setPeng(loadShape("BluePeng.svg"));
     }
-  }
+  }*/
 }
 
 void draw() {
