@@ -98,3 +98,26 @@ Kosta & Joseph :: Finished Penguin class except for launch() and bounce() method
 --------------------------------------------------------------
 Kosta & Joseph :: Worked further on launch() and bounce() methods, these are by far the hardest parts of the project. Consulted Processing's example ball bounce code for help and inspiration.
 ==============================================================
+
+
+2022-06-03
+--------------------------------------------------------------
+Kosta :: Implemented a basic working bounce/collision method in each Penguin
+Joseph :: Made to-do list for big hurdles in this project, began planning on accelertation and deceleration
+==============================================================
+
+2022-06-04
+--------------------------------------------------------------
+Kosta :: Created SVGs of penguins for each team, figured out how to import them as PShapes into Processing. Touched up UX with Iceberg and general aesthetics. 
+==============================================================
+
+2022-06-05
+--------------------------------------------------------------
+Joseph :: Created plans for remaining hurdles in the project, outlined what we need to do and how for major methods. 
+==============================================================
+
+2022-06-06
+--------------------------------------------------------------
+Kosta & Joseph :: Implemnented basic deceleration for an MVP, worked on a start screen with a button.
+==============================================================
+
