@@ -18,6 +18,8 @@ Platoon[] platoons = {
 
 Iceberg berg = new Iceberg(600, 600);
 
+boolean _click = false;
+
 boolean moveComplete = false;
 
 void setup() {
@@ -25,8 +27,8 @@ void setup() {
   pixelDensity(2);
   
   // janky functional colors:
-  pengs[0].setPeng(loadShape("RedPeng.svg"));
-  pengs[1].setPeng(loadShape("BluePeng.svg"));
+  //pengs[0].setPeng(loadShape("RedPeng.svg"));
+  //pengs[1].setPeng(loadShape("BluePeng.svg"));
   // non-functional penguin color assignments below :/ will do later
   /*for(int i = 0; i < pengs.length; i++) {
     if (pengs[i].getTeam() % 2 == 0) {
@@ -36,6 +38,15 @@ void setup() {
       pengs[i].setPeng(loadShape("BluePeng.svg"));
     }
   }*/
+  background(80, 100, 110);
+  fill(85, 120, 130);
+  rect(width/2 - 100, height/2 - 60, 200, 120);
+  while (true) {
+    mouseClicked();
+   if(_click == true) {
+       break; 
+   }
+  }
 }
 
 void draw() {
@@ -46,7 +57,7 @@ void draw() {
   for (Penguin p : pengs) {
     p.update();
     p.display();
-    //p.checkBoundaryCollision();
+    p.checkBoundaryCollision();
   }
   
   for (int i = 0; i < pengs.length; i++) {
@@ -72,3 +83,9 @@ void move() {
   }
   moveComplete = false;
 }*/
+
+void mouseClicked() {
+  if(mousePressed) {
+   _click = true;
+  }
+}

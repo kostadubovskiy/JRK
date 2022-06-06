@@ -10,11 +10,12 @@ public class Penguin {
   private PVector[] _neighbors;
   private PVector _tempVec;
   private PShape _peng;
+  private float accelConst = 0.05;
   
   public Penguin(int team) {
     // default peng given a team to assign to
     _radius = 30; // arbitrary choice for penguin's radius
-    _velocity = new PVector(0, 0); // new PVector((float) (Math.random() * 10), (float) (Math.random() * 10)); // start at rest
+    _velocity = new PVector((float) (Math.random() * 10), (float) (Math.random() * 10)); // start at rest
     _position = new PVector((float) ((600-_radius)*(Math.random()) + 100 + _radius), (float) ((600-_radius)*(Math.random()) + 100 + _radius));
     //_sunken = false;
     _team = team % 2;
@@ -26,6 +27,7 @@ public class Penguin {
     } else {
      _peng = loadShape("RedPeng.svg"); 
     }*/
+    //_peng = createShape(ELLIPSE, _position.x, _position.y, 2 * _radius, 2 * _radius);
   }
   
   public int getTeam() {
@@ -75,7 +77,7 @@ public class Penguin {
     _peng = pengShape;
     return true;
   }
-  /*
+  
   void checkBoundaryCollision() {
     if (_position.x > width - 100 - _radius) {
       _position.x = width - 100 - _radius;
@@ -90,7 +92,7 @@ public class Penguin {
       _position.y = 100 + _radius;
       _velocity.y *= -1;
     }
-  }*/
+  }
   
   void checkCollision(Penguin other) {
 
@@ -189,6 +191,14 @@ public class Penguin {
   
   void update() {
     _position.add(_velocity);
+    _velocity.x -= accelConst*cos(_velocity.heading());
+    _velocity.y -= accelConst*sin(_velocity.heading());
+    if(-0.005 < _velocity.x && _velocity.x < 0.005) {
+      _velocity.x = 0;
+    }
+    if(-0.005 < _velocity.y && _velocity.y < 0.005) {
+      _velocity.y = 0;
+    }
     if (_sunken) {
       _velocity.set(0, 0);
       _radius = 0;
@@ -201,24 +211,25 @@ public class Penguin {
     } else {
       fill(50, 50, 150);
     }
-    translate(_position.x, _position.y);
-    shape(_peng);
+    //translate(_position.x, _position.y);
+    //shape(_peng);
+    ellipse(_position.x, _position.y, 2* _radius, 2* _radius);
   }
   
-  private boolean updateDistance(){
+  private boolean updateDistance() {
     double xDist;
     double yDist;
-    if (_position.x < 500) {
-      xDist = _position.x - 150;
+    if (_position.x < 400) {
+      xDist = _position.x - 100;
     }
     else {
-      xDist = 850 - _position.x;
+      xDist = 700 - _position.x;
     }
-    if (_position.y < 500) {
-      yDist = _position.y - 150;
+    if (_position.y < 400) {
+      yDist = _position.y - 100;
     }
     else {
-      yDist = 850 - _position.y;
+      yDist = 700 - _position.y;
     }
     if (xDist < 0 || yDist < 0) {
       _sunken = true;
