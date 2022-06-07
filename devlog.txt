@@ -122,3 +122,10 @@ Joseph :: Created plans for remaining hurdles in the project, outlined what we n
 (At-home) Kosta :: Implemented Platoon class and began working on move() method in Knockout.pde
 ==============================================================
 
+2022-06-07
+--------------------------------------------------------------
+(In-class) Kosta & Joseph :: Mini demo, trouble-shooted start screen, focused and worked mainly on move() method. Issues with "selecting" a penguin. whichPeng() method in Platoon is mysteriously non-functional. It's the source of all the current problems
+(At-home) Kosta & Joseph :: Called on discord: 
+==============================================================
+
+
