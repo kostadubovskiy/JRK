@@ -7,10 +7,10 @@ public class Penguin {
   private boolean _sunken;
   private boolean _thawed = true;
   private double _distanceToDeath;
+  private float accelConst = 0.05;
   private PVector[] _neighbors;
   private PVector _tempVec;
   private PShape _peng;
-  private float accelConst = 0.05;
   
   public Penguin(int team) {
     // default peng given a team to assign to
@@ -76,6 +76,10 @@ public class Penguin {
   public boolean setPeng(PShape pengShape) {
     _peng = pengShape;
     return true;
+  }
+  
+  public boolean isSunken() {
+    return _sunken;
   }
   
   void checkBoundaryCollision() {

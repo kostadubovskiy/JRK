@@ -19,12 +19,15 @@ Platoon[] platoons = {
 Iceberg berg = new Iceberg(600, 600);
 
 boolean _click = false;
+boolean _started = false;
 
-boolean moveComplete = false;
+boolean _moveComplete = false;
+
+Penguin _selected = platoons[0].getNext();
 
 void setup() {
   size(800, 800);
-  pixelDensity(2);
+  //pixelDensity(2);
   
   // janky functional colors:
   //pengs[0].setPeng(loadShape("RedPeng.svg"));
@@ -40,52 +43,58 @@ void setup() {
   }*/
   background(80, 100, 110);
   fill(85, 120, 130);
-  rect(width/2 - 100, height/2 - 60, 200, 120);
-  while (true) {
-    mouseClicked();
-   if(_click == true) {
-       break; 
-   }
-  }
+  stroke(35, 70, 80);
+  rect(width/2 - 150, height/2 - 60, 300, 120, 15);
+  fill(200, 230, 250);
+  textSize(50);
+  text("Click to Start", width/2 - 135, height/2 + 15);
 }
 
 void draw() {
-  background(100, 165, 200);
-  berg.update();
-  berg.display();
-  //move();
-  for (Penguin p : pengs) {
-    p.update();
-    p.display();
-    p.checkBoundaryCollision();
+  if (!_started) {
+    if(_click == true) {
+       if( width/2 - 150 < mouseX && mouseX < width/2 + 150 && height/2 - 60 < mouseY && mouseY < height/2 + 60) {
+         _started = true;
+       }
+       _click = false;
+    }
   }
-  
-  for (int i = 0; i < pengs.length; i++) {
-    for (int j = i + 1; j < pengs.length; j++) {
-      pengs[i].checkCollision(pengs[j]);
+  if (_started) {
+    background(100, 165, 200);
+    berg.update();
+    berg.display();
+    //move();
+    for (Penguin p : pengs) {
+      p.update();
+      p.display();
+      p.checkBoundaryCollision();
+    }
+    
+    for (int i = 0; i < pengs.length; i++) {
+      for (int j = i + 1; j < pengs.length; j++) {
+        pengs[i].checkCollision(pengs[j]);
+      }
     }
   }
 }
-/*
+
+
 void move() {
-  while (! moveComplete) {
+  while (! _moveComplete) {
     
     for (Platoon t : platoons) {
-      for (Penguin p : t) {
+      for (Penguin p : t.getPlatoon()) {
+        p.setThaw(false);
         if(! p.getThaw()) { //if the penguin is available this turn
-          while(mouseReleased()) {
-          }
           PVector launchVec = new PVector(mouseX, mouseY);
           p.setTempV(launchVec);
         }
       }
     }
   }
-  moveComplete = false;
-}*/
+  _moveComplete = false;
+}
 
 void mouseClicked() {
-  if(mousePressed) {
-   _click = true;
-  }
+  _click = true;
 }
