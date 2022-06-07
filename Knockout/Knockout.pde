@@ -25,6 +25,8 @@ boolean _moveComplete = false;
 
 Penguin _selected = platoons[0].getNext();
 
+int cursor;
+
 void setup() {
   size(800, 800);
   frameRate(240);
@@ -52,9 +54,11 @@ void setup() {
 }
 
 void draw() {
+  cursor = ARROW;
   if (!_started) {
     if(_click == true) {
        if( abs(mouseX - width/2) < 150 && abs(mouseY - height/2) < 60) {
+         cursor = HAND;
          _started = true;
        }
        _click = false;
@@ -82,6 +86,7 @@ void draw() {
       }
     }
   }
+  cursor(cursor);
 }
 
 
