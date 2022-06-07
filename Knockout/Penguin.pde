@@ -15,7 +15,7 @@ public class Penguin {
   public Penguin(int team) {
     // default peng given a team to assign to
     _radius = 30; // arbitrary choice for penguin's radius
-    _velocity = new PVector((float) (Math.random() * 10), (float) (Math.random() * 10)); // start at rest
+    _velocity = new PVector((float) (Math.random() * 10), (float) (Math.random() * 10)); // start at _ velocity
     _position = new PVector((float) ((600-_radius)*(Math.random()) + 100 + _radius), (float) ((600-_radius)*(Math.random()) + 100 + _radius));
     //_sunken = false;
     _team = team % 2;
@@ -40,6 +40,10 @@ public class Penguin {
 
   public PVector getPos() {
     return _position;
+  }
+  
+  public float getRadius() {
+   return _radius; 
   }
 
   public boolean sink() {
@@ -81,7 +85,7 @@ public class Penguin {
   public boolean isSunken() {
     return _sunken;
   }
-  
+  /*
   void checkBoundaryCollision() {
     if (_position.x > width - 100 - _radius) {
       _position.x = width - 100 - _radius;
@@ -96,7 +100,7 @@ public class Penguin {
       _position.y = 100 + _radius;
       _velocity.y *= -1;
     }
-  }
+  }*/
   
   void checkCollision(Penguin other) {
 

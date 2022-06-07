@@ -35,9 +35,19 @@ public class Platoon {
       if (potentialP.equals(p)) {
        _drowned.add(p);
        _squadron.remove(p);
+       p.sink();
       }
      }
      return p;
+  }
+  
+  public Penguin whichPeng(float cX, float cY) {
+    for(Penguin p : _squadron) {
+      if (abs(cX - p.getPos().x) < p.getRadius() && abs(cY - p.getPos().y) < p.getRadius()) {
+        return p;
+      }
+    }
+    return null;
   }
   
   public boolean isAlive(Penguin p) {

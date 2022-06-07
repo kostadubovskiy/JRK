@@ -27,6 +27,7 @@ Penguin _selected = platoons[0].getNext();
 
 void setup() {
   size(800, 800);
+  frameRate(240);
   //pixelDensity(2);
   
   // janky functional colors:
@@ -53,7 +54,7 @@ void setup() {
 void draw() {
   if (!_started) {
     if(_click == true) {
-       if( width/2 - 150 < mouseX && mouseX < width/2 + 150 && height/2 - 60 < mouseY && mouseY < height/2 + 60) {
+       if( abs(mouseX - width/2) < 150 && abs(mouseY - height/2) < 60) {
          _started = true;
        }
        _click = false;
@@ -65,9 +66,14 @@ void draw() {
     berg.display();
     //move();
     for (Penguin p : pengs) {
-      p.update();
-      p.display();
-      p.checkBoundaryCollision();
+      if(onBerg(p.getPos())) {
+        p.sink();
+      }
+      if(!p.isSunken()) {
+        p.update();
+        p.display();
+        //p.checkBoundaryCollision();
+      }
     }
     
     for (int i = 0; i < pengs.length; i++) {
@@ -81,14 +87,12 @@ void draw() {
 
 void move() {
   while (! _moveComplete) {
-    
     for (Platoon t : platoons) {
       for (Penguin p : t.getPlatoon()) {
         p.setThaw(false);
-        if(! p.getThaw()) { //if the penguin is available this turn
-          PVector launchVec = new PVector(mouseX, mouseY);
-          p.setTempV(launchVec);
-        }
+      }
+      if(_click == true) {
+        
       }
     }
   }
@@ -97,4 +101,15 @@ void move() {
 
 void mouseClicked() {
   _click = true;
+}
+
+void mouseReleased() {
+ _click = false; 
+}
+
+boolean onBerg(PVector position) {
+   if ((100 + berg.getDimensions()[0] - position.x) < 0 || (position.x - 100) < 0 || (100 + berg.getDimensions()[1] - position.y) < 0 || (position.y - 100) < 0) {
+     return true;
+   }
+   return false;
 }
