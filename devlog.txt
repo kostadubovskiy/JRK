@@ -118,6 +118,7 @@ Joseph :: Created plans for remaining hurdles in the project, outlined what we n
 
 2022-06-06
 --------------------------------------------------------------
-Kosta & Joseph :: Implemnented basic deceleration for an MVP, worked on a start screen with a button.
+(In-class) Kosta & Joseph :: Implemnented basic deceleration for an MVP, worked on a start screen with a button.
+(At-home) Kosta :: Implemented Platoon class and began working on move() method in Knockout.pde
 ==============================================================
 
