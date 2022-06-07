@@ -21,7 +21,9 @@ Iceberg berg = new Iceberg(600, 600);
 boolean _click = false;
 boolean _started = false;
 
-boolean moveComplete = false;
+boolean _moveComplete = false;
+
+Penguin _selected = platoons[0].getNext();
 
 void setup() {
   size(800, 800);
@@ -76,23 +78,22 @@ void draw() {
   }
 }
 
-/*
+
 void move() {
-  while (! moveComplete) {
+  while (! _moveComplete) {
     
     for (Platoon t : platoons) {
-      for (Penguin p : t) {
+      for (Penguin p : t.getPlatoon()) {
+        p.setThaw(false);
         if(! p.getThaw()) { //if the penguin is available this turn
-          while(mouseReleased()) {
-          }
           PVector launchVec = new PVector(mouseX, mouseY);
           p.setTempV(launchVec);
         }
       }
     }
   }
-  moveComplete = false;
-}*/
+  _moveComplete = false;
+}
 
 void mouseClicked() {
   _click = true;
