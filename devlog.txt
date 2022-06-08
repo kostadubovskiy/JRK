@@ -125,7 +125,7 @@ Joseph :: Created plans for remaining hurdles in the project, outlined what we n
 2022-06-07
 --------------------------------------------------------------
 (In-class) Kosta & Joseph :: Mini demo, trouble-shooted start screen, focused and worked mainly on move() method. Issues with "selecting" a penguin. whichPeng() method in Platoon is mysteriously non-functional. It's the source of all the current problems
-(At-home) Kosta & Joseph :: Called on discord: 
+(At-home) Kosta & Joseph :: Called on discord: Enabled selecting and deselecting of active penguins. Worked a LOT on setting a target/fire vector, to (little) no avail.
 ==============================================================
 
 

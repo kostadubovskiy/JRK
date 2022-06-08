@@ -107,6 +107,10 @@ public class Penguin {
   public void setVelocity(PVector newV) {
    _velocity = newV;
   }
+  
+  public void setPos(PVector pos) {
+   _position = pos; 
+  }
   /*
   void checkBoundaryCollision() {
     if (_position.x > width - 100 - _radius) {

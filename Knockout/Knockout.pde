@@ -1,11 +1,5 @@
-/**
- * Circle Collision with Swapping Velocities
- * by Ira Greenberg. 
- * 
- * Based on Keith Peter's Solution in
- * Foundation Actionscript Animation: Making Things Move!
- */
- 
+import java.util.*;
+
 Penguin[] pengs =  { 
   new Penguin(0), 
   new Penguin(1),
@@ -30,7 +24,7 @@ int cursor;
 Button start;
 Button _moveComplete;
 
-ArrayList<Penguin> _currSelec = new ArrayList<Penguin>();
+HashSet<Penguin> _currSelec = new HashSet<Penguin>();
 
 int _activePlatoon = 0; // number of the platoon who can currently make choices
 boolean _zeroDone = false; // is team zero done with their move
@@ -119,26 +113,37 @@ void draw() {
   //cursor(cursor);
 }
 
+
 void move() {
   if (!_moveComplete.isSelected()){
     Platoon currTeam = platoons[_activePlatoon];
     currTeam.getPeng(0).setThaw(false);
+    currTeam.getPeng(1).setThaw(false);
     for (Penguin p : currTeam.getPlatoon()) {
       if (!p.getThaw()) {
         if (p.getInd().isSelected()) {
           _currSelec.add(p);
-          if(_click) {
-            for(Penguin launching : _currSelec) {
-              launching.setTarget(new PVector(mouseX, mouseY));
-              launching.getInd().select();
-            }
-          }
+        }
+      }
+    }
+    
+    if(!_moveComplete.isSelected()) {
+      for(Penguin launching : _currSelec) {
+        if(_click) {
+          launching.setTarget(new PVector(mouseX, mouseY));
+          launching.getInd().select();
+          _click = false;
         }
       }
     }
   } else {
+    for(Penguin launching : _currSelec) {
+        launching.setVelocity(launching.getTarget());
+    }
     _currSelec.clear();
     _moveComplete.select();
+    _activePlatoon += 1;
+    _activePlatoon = _activePlatoon % 2;
   }
   if (_zeroDone && _oneDone) {
    for (Platoon t : platoons) {
