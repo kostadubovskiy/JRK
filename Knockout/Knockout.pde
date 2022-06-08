@@ -14,6 +14,7 @@ Platoon[] platoons = {
 
 Iceberg berg = new Iceberg(600, 600);
 
+boolean _click = false;
 boolean _clickStart = false;
 boolean _clickSelect = false;
 boolean _clickL = false;
@@ -67,31 +68,74 @@ void draw() {
          _started = true; // if it was, change global started var to true. Never come back here
       }
        _clickStart = false; // change click back to true
+       _clickL = false;
+       _click = false;
+       _clickC = false;
+       _clickSelect = false;
     }
   } else {
     background(100, 165, 200);
     berg.update();
     berg.display(); // update and display iceberg
     
-    if(_clickSelect) { // if a click is registered for selecting a penguin
+    if(_click) { // if a click is registered at all
        for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
-        (p.getInd()).clicked(mouseX, mouseY);
+          boolean pre = p.getInd().isSelected();
+          (p.getInd()).clicked(mouseX, mouseY); // check to see if it was a penguin that was clicked
+          boolean post = p.getInd().isSelected();
+          if (pre != post) { // if cond changed, then it was a selection click
+           _clickL = false;
+           _clickC = false;
+        } else {
+           _clickSelect = false; 
+        }
        }
-       _clickSelect = false;
-    }
-    
-    if(!_moveComplete.isSelected()) {
-      for(Penguin launching : _currSelec) {
-        if(_clickL) {
-          launching.getInd().shootColor();
-          launching.setTarget(new PVector(mouseX, mouseY));
-          _clickL = false;
+       
+       if(_clickC) {
+          boolean pre = _moveComplete.isSelected(); 
+          _moveComplete.clicked(mouseX, mouseY); 
+          boolean post = _moveComplete.isSelected();
+          if(pre != post) {
+             _clickL = false;
+             _clickSelect = false;
+          } else {
+            _clickC = false; 
+          }
+      }
+      
+      if(!_moveComplete.isSelected()) { // if still moving
+        if(_clickL) { // if click registered in this draw cycle
+          for(Penguin launching : _currSelec) {
+            launching.getInd().shootColor();
+            launching.setTarget(new PVector(mouseX, mouseY));
+            _clickL = false;
+          }
         }
       }
+    } else {
+      _click = false;
+      _clickStart = false;
+      _clickSelect = false;
+      _clickL = false;
+      _clickC = false;
     }
     
-    if(_clickC) _moveComplete.clicked(mouseX, mouseY); _clickC = false;
     _moveComplete.display();
+    if(_moveComplete.isSelected()) {
+     if(_activePlatoon == 0) {
+      _zeroDone = true; 
+      _activePlatoon += 1;
+      _moveComplete.select();
+     } else {
+       _oneDone = true;
+       _activePlatoon -= 1;
+       _moveComplete.select();
+     }
+    }
+    
+    
+    
+
     move();
     
     for (Penguin p : pengs) {
@@ -128,12 +172,13 @@ void move() {
         }
       }
     } //<>//
-  } else {
-    for(Penguin launching : _currSelec) {
-       if(launching.getTarget() != null) {
-         launching.setVelocity(launching.getTarget());
-       }
-    }
+  } 
+  else {
+    //for(Penguin launching : _currSelec) {
+    //   if(launching.getTarget() != null) {
+    //     launching.setVelocity(launching.getTarget());
+    //   }
+    //}
     _currSelec.clear();
     _moveComplete.select();
     _activePlatoon += 1;
@@ -142,13 +187,16 @@ void move() {
   if (_zeroDone && _oneDone) {
    for (Platoon t : platoons) {
     for (Penguin p : t.getPlatoon()) {
-     p.setVelocity(p.getTarget());
+     if(p.getTarget() != null) {
+      p.setVelocity(p.getTarget());
+     }
     }
    }
   }
 }
 
 void mouseClicked() {
+  _click = true;
   _clickStart = true;
   _clickSelect = true;
   _clickL = true;

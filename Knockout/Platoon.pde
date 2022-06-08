@@ -66,6 +66,10 @@ public class Platoon {
     return null;
   }
   
+  public int getTeam() {
+   return _team; 
+  }
+  
   public boolean isAlive(Penguin p) {
     //redundant
      return p.isSunken(); 
