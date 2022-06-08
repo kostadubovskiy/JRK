@@ -43,13 +43,15 @@ void setup() {
       pengs[i].setPeng(loadShape("BluePeng.svg"));
     }
   }*/
-  background(80, 100, 110);
+  background(80, 100, 110);/*
   fill(85, 120, 130);
   stroke(35, 70, 80);
   rect(width/2 - 150, height/2 - 60, 300, 120, 15);
   fill(200, 230, 250);
   textSize(50);
-  text("Click to Start", width/2 - 135, height/2 + 15);
+  text("Click to Start", width/2 - 135, height/2 + 15);*/
+  Button start = new Button(width/2 - 150, height/2 - 60, 300, 120, 15, "Click to Start", color(85, 120, 130), color(100, 140, 155));
+  start.display();
   platoons[0].addPeng(pengs[0]);
   platoons[1].addPeng(pengs[1]);
 }
