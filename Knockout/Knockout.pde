@@ -8,7 +8,9 @@
  
 Penguin[] pengs =  { 
   new Penguin(0), 
-  new Penguin(1) 
+  new Penguin(1),
+  new Penguin(2),
+  new Penguin(3)
 };
 
 Platoon[] platoons = {
@@ -21,15 +23,22 @@ Iceberg berg = new Iceberg(600, 600);
 boolean _click = false;
 boolean _started = false;
 
-boolean _moveComplete = false;
-
 Penguin _selected = platoons[0].getNext();
 
 int cursor;
 
+Button start;
+Button _moveComplete;
+
+ArrayList<Penguin> _currSelec = new ArrayList<Penguin>();
+
+int _activePlatoon = 0; // number of the platoon who can currently make choices
+boolean _zeroDone = false; // is team zero done with their move
+boolean _oneDone = false; // """"" one """""
+
 void setup() {
   size(800, 800);
-  frameRate(240);
+  frameRate(480);
   
   // janky functional colors:
   //pengs[0].setPeng(loadShape("RedPeng.svg"));
@@ -50,26 +59,44 @@ void setup() {
   fill(200, 230, 250);
   textSize(50);
   text("Click to Start", width/2 - 135, height/2 + 15);*/
-  Button start = new Button(width/2 - 150, height/2 - 60, 300, 120, 15, "Click to Start", color(85, 120, 130), color(100, 140, 155));
+  start = new Button(width/2 - 150, height/2 - 60, 300, 120, 15, "Click to Start", color(85, 120, 130), color(100, 140, 155));
+  _moveComplete = new Button(width / 2 - 50, height - 75, 100, 50, 10, "Finish move", color(85, 120, 130), color(100, 140, 155));
   start.display();
   platoons[0].addPeng(pengs[0]);
   platoons[1].addPeng(pengs[1]);
+  platoons[0].addPeng(pengs[2]);
+  platoons[1].addPeng(pengs[3]);
 }
 
 void draw() {
   //cursor = ARROW;
   if (!_started) {
     if(_click == true) {
-       if( abs(mouseX - width/2) < 150 && abs(mouseY - height/2) < 60) {
+      start.clicked(mouseX, mouseY);
+      if(start.isSelected()) {
+         _started = true; 
+      }
+      /* if( abs(mouseX - width/2) < 150 && abs(mouseY - height/2) < 60) {
          //cursor = HAND;
          _started = true;
-       }
+       }*/
        _click = false;
     }
   } else {
     background(100, 165, 200);
     berg.update();
     berg.display();
+    
+    if(_click) {
+       for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
+        (p.getInd()).clicked(mouseX, mouseY); 
+       }
+       _click = false;
+    }
+    
+    move();
+    if(_click) _moveComplete.clicked(mouseX, mouseY); _click = false;
+    _moveComplete.display();
     
     for (Penguin p : pengs) {
       if(onBerg(p.getPos())) {
@@ -87,29 +114,39 @@ void draw() {
         pengs[i].checkCollision(pengs[j]);
       }
     }
-    move();
+    
   }
   //cursor(cursor);
 }
 
-
 void move() {
-  while (! _moveComplete) {
-    for (Platoon t : platoons) {
-      for (Penguin p : t.getPlatoon()) {
-        p.setThaw(false);
+  if (!_moveComplete.isSelected()){
+    Platoon currTeam = platoons[_activePlatoon];
+    currTeam.getPeng(0).setThaw(false);
+    for (Penguin p : currTeam.getPlatoon()) {
+      if (!p.getThaw()) {
+        if (p.getInd().isSelected()) {
+          _currSelec.add(p);
+          if(_click) {
+            for(Penguin launching : _currSelec) {
+              launching.setTarget(new PVector(mouseX, mouseY));
+              launching.getInd().select();
+            }
+          }
+        }
       }
-      if(_click == true) {
-        Penguin selectedP = t.whichPeng(mouseX, mouseY); 
-        //if(!(selectedP == null)) {
-          selectedP.select(true); 
-        //}
-      }
-      _moveComplete = true;
     }
-    
+  } else {
+    _currSelec.clear();
+    _moveComplete.select();
   }
-  _moveComplete = false;
+  if (_zeroDone && _oneDone) {
+   for (Platoon t : platoons) {
+    for (Penguin p : t.getPlatoon()) {
+     p.setVelocity(p.getTarget());
+    }
+   }
+  }
 }
 
 void mouseClicked() {

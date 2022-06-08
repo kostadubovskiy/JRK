@@ -1,36 +1,29 @@
-class Button{
+class PengButton{
   float _x,_y;
   float _w,_h;
-  float _curve;
   boolean _selected;
   color _selectedColor;
   color _defaultColor;
   color _currentColor;
-  String _label; 
 
-  Button(float x, float y, float w, float h, float curve, String label, color dC, color sC){
+  PengButton(float x, float y, float w, float h, color dC, color sC){
     _x = x;
     _y = y;
     _w = w;
     _h = h;
-    _curve = curve;
-    _label = label;
     _selected = false;
     _selectedColor = sC;
     _defaultColor = dC;
     _currentColor = _defaultColor;
   }
 
-  void display(){
+  void display(float currX, float currY){
     fill( _currentColor);
-    rect( _x, _y, _w, _h, _curve);
-    fill( 0);//black for text
-    textAlign(CENTER);
-    text( _label, _x + _w/2, _y + (_h/2));
+    ellipse( currX, currY, _w, _h);
   }
 
-  void clicked( int mx, int my){
-    if( mx > _x && mx < _x + _w  && my > _y && my < _y + _h){
+  void clicked(int mx, int my){
+    if( dist(_x, _y, mx, my) < dist(0, 0, _h,_w) ){
       _selected = !_selected;  
       if( _selected){
           _currentColor = _selectedColor;
@@ -46,5 +39,10 @@ class Button{
   
   void select() {
    _selected = !_selected; 
+   if( _selected){
+        _currentColor = _selectedColor;
+    } else{
+        _currentColor = _defaultColor;
+    }
   }
 } 

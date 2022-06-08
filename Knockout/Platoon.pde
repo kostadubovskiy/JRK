@@ -30,6 +30,10 @@ public class Platoon {
     return null;
   }
   
+  public Penguin getPeng(int ind) {
+    return _squadron.get(ind); 
+  }
+  
   public Penguin peek() {
     if( _squadron.size() > 0) {
        Penguin next = _squadron.get(0);

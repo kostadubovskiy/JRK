@@ -7,20 +7,26 @@ public class Penguin {
   private boolean _sunken;
   private boolean _thawed = true;
   private double _distanceToDeath;
-  private float accelConst = 0.05;
+  private float accelConst = 0.01;
   private PVector[] _neighbors;
-  private PVector _tempVec;
+  private PVector _target;
   private PShape _peng;
   private boolean _selected = false;
+  private PengButton _indicator;
   
   public Penguin(int team) {
     // default peng given a team to assign to
     _radius = 30; // arbitrary choice for penguin's radius
-    _velocity = new PVector((float) (Math.random() * 5), (float) (Math.random() * 5)); // start at _ velocity
+    _velocity = new PVector(0, 0);// new PVector((float) (Math.random() * 5), (float) (Math.random() * 5)); // start at _ velocity
     _position = new PVector((float) ((600-_radius)*(Math.random()) + 100 + _radius), (float) ((600-_radius)*(Math.random()) + 100 + _radius));
     //_sunken = false;
     _team = team % 2;
     m = _radius*.1;
+    if(_team == 0) {
+      _indicator = new PengButton(_position.x, _position.y, _radius * 2, _radius * 2, color(200, 50, 50), color(0));
+    } else {
+      _indicator = new PengButton(_position.x, _position.y, _radius * 2, _radius * 2, color(50, 50, 200), color(255));
+    }
     /*
     // more non-functional color assignments
     if ( _team == 0 ){
@@ -45,6 +51,10 @@ public class Penguin {
 
   public PVector getPos() {
     return _position;
+  }
+  
+  public PengButton getInd() {
+   return _indicator;
   }
   
   public float getRadius() {
@@ -77,11 +87,6 @@ public class Penguin {
     return _distanceToDeath;
   }
   
-  public boolean setTempV(PVector newTemp) {
-     //tempV = newTemp;
-     return true;
-  }
-  
   public boolean setPeng(PShape pengShape) {
     _peng = pengShape;
     return true;
@@ -89,6 +94,18 @@ public class Penguin {
   
   public boolean isSunken() {
     return _sunken;
+  }
+  
+  public void setTarget(PVector target) {
+   _target = target; 
+  }
+  
+  public PVector getTarget() {
+    return _target;
+  }
+  
+  public void setVelocity(PVector newV) {
+   _velocity = newV;
   }
   /*
   void checkBoundaryCollision() {
@@ -206,10 +223,10 @@ public class Penguin {
     _position.add(_velocity);
     _velocity.x -= accelConst*cos(_velocity.heading());
     _velocity.y -= accelConst*sin(_velocity.heading());
-    if(abs(_velocity.x) < 0.00001) {
+    if(abs(_velocity.x) < .500001 * accelConst) {
       _velocity.x = 0;
     }
-    if(abs(_velocity.y) < 0.00001) {
+    if(abs(_velocity.y) < .500001 * accelConst) {
       _velocity.y = 0;
     }
   }
@@ -227,8 +244,8 @@ public class Penguin {
     } else {
       noStroke();
     }
-    
-    ellipse(_position.x, _position.y, 2* _radius, 2* _radius);
+    _indicator.display(_position.x, _position.y);
+    //ellipse(_position.x, _position.y, 2* _radius, 2* _radius);
   }
   
   private boolean updateDistance() {
