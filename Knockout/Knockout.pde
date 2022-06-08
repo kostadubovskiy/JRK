@@ -66,8 +66,7 @@ void draw() {
        }
        _click = false;
     }
-  }
-  if (_started) {
+  } else {
     background(100, 165, 200);
     berg.update();
     berg.display();

@@ -34,7 +34,7 @@ class Button{
       _selected = !_selected;  
       if( _selected){
           _currentColor = _selectedColor;
-      }else{
+      } else{
           _currentColor = _defaultColor;
       }
     }
