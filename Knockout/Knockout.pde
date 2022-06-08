@@ -174,15 +174,13 @@ void move() {
         if (p.getInd().isSelected()) {
           _currSelec.add(p);
         }
+        if (!p.getInd().isSelected() && _currSelec.contains(p)) {
+          _currSelec.remove(p);
+        }
       }
-    } //<>//
+    }
   } 
   else {
-    //for(Penguin launching : _currSelec) {
-    //   if(launching.getTarget() != null) {
-    //     launching.setVelocity(launching.getTarget());
-    //   }
-    //}
     _currSelec.clear();
     _moveComplete.select();
     _activePlatoon += 1;
@@ -193,9 +191,12 @@ void move() {
     for (Penguin p : t.getPlatoon()) {
      if(p.getTarget() != null) {
       p.setVelocity(p.getTarget());
+      p.setTarget(null);
      }
     }
    }
+   _zeroDone = false;
+   _oneDone = false;
   }
 }
 
