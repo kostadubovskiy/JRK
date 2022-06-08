@@ -6,9 +6,10 @@ class Button{
   color _selectedColor;
   color _defaultColor;
   color _currentColor;
-  String _label; 
+  String _label;
+  int _textSize;
 
-  Button(float x, float y, float w, float h, float curve, String label, color dC, color sC){
+  Button(float x, float y, float w, float h, float curve, String label, color dC, color sC, int textSize){
     _x = x;
     _y = y;
     _w = w;
@@ -19,12 +20,14 @@ class Button{
     _selectedColor = sC;
     _defaultColor = dC;
     _currentColor = _defaultColor;
+    _textSize = textSize;
   }
 
   void display(){
     fill( _currentColor);
     rect( _x, _y, _w, _h, _curve);
     fill( 0);//black for text
+    textSize(_textSize);
     textAlign(CENTER);
     text( _label, _x + _w/2, _y + (_h/2));
   }

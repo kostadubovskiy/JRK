@@ -14,7 +14,10 @@ Platoon[] platoons = {
 
 Iceberg berg = new Iceberg(600, 600);
 
-boolean _click = false;
+boolean _clickStart = false;
+boolean _clickSelect = false;
+boolean _clickL = false;
+boolean _clickC = false;
 boolean _started = false;
 
 Penguin _selected = platoons[0].getNext();
@@ -34,7 +37,7 @@ void setup() {
   size(800, 800);
   frameRate(480);
   
-  // janky functional colors:
+  // svgs:
   //pengs[0].setPeng(loadShape("RedPeng.svg"));
   //pengs[1].setPeng(loadShape("BluePeng.svg"));
   // non-functional penguin color assignments below :/ will do later
@@ -46,15 +49,9 @@ void setup() {
       pengs[i].setPeng(loadShape("BluePeng.svg"));
     }
   }*/
-  background(80, 100, 110);/*
-  fill(85, 120, 130);
-  stroke(35, 70, 80);
-  rect(width/2 - 150, height/2 - 60, 300, 120, 15);
-  fill(200, 230, 250);
-  textSize(50);
-  text("Click to Start", width/2 - 135, height/2 + 15);*/
-  start = new Button(width/2 - 150, height/2 - 60, 300, 120, 15, "Click to Start", color(85, 120, 130), color(100, 140, 155));
-  _moveComplete = new Button(width / 2 - 50, height - 75, 100, 50, 10, "Finish move", color(85, 120, 130), color(100, 140, 155));
+  background(80, 100, 110);
+  start = new Button(width/2 - 150, height/2 - 60, 300, 120, 15, "Click to Start", color(85, 120, 130), color(100, 140, 155), 30);
+  _moveComplete = new Button(width / 2 - 50, height - 75, 100, 50, 10, "Finish move", color(85, 120, 130), color(100, 140, 155), 20);
   start.display();
   platoons[0].addPeng(pengs[0]);
   platoons[1].addPeng(pengs[1]);
@@ -63,34 +60,39 @@ void setup() {
 }
 
 void draw() {
-  //cursor = ARROW;
-  if (!_started) {
-    if(_click == true) {
-      start.clicked(mouseX, mouseY);
+  if (!_started) { // if not past the start screen
+    if(_clickStart == true) { // if mouseClicked registers a click and changes _click to true
+      start.clicked(mouseX, mouseY); // check if the click was on the start button
       if(start.isSelected()) {
-         _started = true; 
+         _started = true; // if it was, change global started var to true. Never come back here
       }
-      /* if( abs(mouseX - width/2) < 150 && abs(mouseY - height/2) < 60) {
-         //cursor = HAND;
-         _started = true;
-       }*/
-       _click = false;
+       _clickStart = false; // change click back to true
     }
   } else {
     background(100, 165, 200);
     berg.update();
-    berg.display();
+    berg.display(); // update and display iceberg
     
-    if(_click) {
+    if(_clickSelect) { // if a click is registered 
        for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
         (p.getInd()).clicked(mouseX, mouseY); 
        }
-       _click = false;
+       _clickSelect = false;
     }
     
-    move();
-    if(_click) _moveComplete.clicked(mouseX, mouseY); _click = false;
+    if(!_moveComplete.isSelected()) {
+      for(Penguin launching : _currSelec) {
+        if(_clickL) {
+          launching.setTarget(new PVector(mouseX, mouseY));
+          launching.getInd().select();
+          _clickL = false;
+        }
+      }
+    }
+    
+    if(_clickC) _moveComplete.clicked(mouseX, mouseY); _clickC = false;
     _moveComplete.display();
+    move();
     
     for (Penguin p : pengs) {
       if(onBerg(p.getPos())) {
@@ -125,20 +127,12 @@ void move() {
           _currSelec.add(p);
         }
       }
-    }
-    
-    if(!_moveComplete.isSelected()) {
-      for(Penguin launching : _currSelec) {
-        if(_click) {
-          launching.setTarget(new PVector(mouseX, mouseY));
-          launching.getInd().select();
-          _click = false;
-        }
-      }
-    }
+    } //<>//
   } else {
     for(Penguin launching : _currSelec) {
-        launching.setVelocity(launching.getTarget());
+       if(launching.getTarget() != null) {
+         launching.setVelocity(launching.getTarget());
+       }
     }
     _currSelec.clear();
     _moveComplete.select();
@@ -155,11 +149,11 @@ void move() {
 }
 
 void mouseClicked() {
-  _click = true;
-}
-
-void mouseReleased() {
- _click = false; 
+  _clickStart = true;
+  _clickSelect = true;
+  _clickL = true;
+  _clickC = true;
+  
 }
 
 boolean onBerg(PVector position) {
