@@ -73,9 +73,9 @@ void draw() {
     berg.update();
     berg.display(); // update and display iceberg
     
-    if(_clickSelect) { // if a click is registered 
+    if(_clickSelect) { // if a click is registered for selecting a penguin
        for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
-        (p.getInd()).clicked(mouseX, mouseY); 
+        (p.getInd()).clicked(mouseX, mouseY);
        }
        _clickSelect = false;
     }
@@ -83,8 +83,8 @@ void draw() {
     if(!_moveComplete.isSelected()) {
       for(Penguin launching : _currSelec) {
         if(_clickL) {
+          launching.getInd().shootColor();
           launching.setTarget(new PVector(mouseX, mouseY));
-          launching.getInd().select();
           _clickL = false;
         }
       }

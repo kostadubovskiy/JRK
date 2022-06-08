@@ -45,4 +45,8 @@ class PengButton{
         _currentColor = _defaultColor;
     }
   }
+  
+  void shootColor() {
+   _currentColor = color(255, 255, 255);
+  }
 } 
