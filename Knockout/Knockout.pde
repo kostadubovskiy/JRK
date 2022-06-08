@@ -76,7 +76,7 @@ void draw() {
   } else {
     background(100, 165, 200);
     berg.update();
-    berg.display(); // update and display iceberg
+    berg.display(); // update and display iceberg and background
     
     if(_click) { // if a click is registered at all
        for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
@@ -84,14 +84,18 @@ void draw() {
           (p.getInd()).clicked(mouseX, mouseY); // check to see if it was a penguin that was clicked
           boolean post = p.getInd().isSelected();
           if (pre != post) { // if cond changed, then it was a selection click
-           _clickL = false;
-           _clickC = false;
+           _clickL = false; // it was a sClick so reset launch click
+           _clickC = false; // it was a sClick so reset complete-turn click
         } else {
-           _clickSelect = false; 
+           _clickSelect = false;  // if it wasn't a selection click, rule that out and reset it
         }
        }
        
-       if(_clickC) {
+       //if(!_moveComplete.isSelected()) { // if still moving
+      
+      //}
+      
+       if(_clickC && !_clickSelect) { // if the type of click has been narrowed down to a complete or a launch click 
           boolean pre = _moveComplete.isSelected(); 
           _moveComplete.clicked(mouseX, mouseY); 
           boolean post = _moveComplete.isSelected();
@@ -103,15 +107,18 @@ void draw() {
           }
       }
       
-      if(!_moveComplete.isSelected()) { // if still moving
-        if(_clickL) { // if click registered in this draw cycle
-          for(Penguin launching : _currSelec) {
-            launching.getInd().shootColor();
-            launching.setTarget(new PVector(mouseX, mouseY));
-            _clickL = false;
-          }
+      if(_clickL && !_clickC && !_clickSelect) { // if it could still be a luaunch click but definitely not a complete-turn click
+        for(Penguin launching : _currSelec) {
+          launching.getInd().shootColor();
+          launching.setTarget(new PVector(mouseX, mouseY));
         }
+        _clickL = false;
       }
+      
+      _clickSelect = false;
+      _clickC = false;
+      _clickL = false;
+      _click = false; // reset general click
     } else {
       _click = false;
       _clickStart = false;
@@ -120,7 +127,7 @@ void draw() {
       _clickC = false;
     }
     
-    _moveComplete.display();
+    _moveComplete.display(); //<>//
     if(_moveComplete.isSelected()) {
      if(_activePlatoon == 0) {
       _zeroDone = true; 
@@ -132,9 +139,6 @@ void draw() {
        _moveComplete.select();
      }
     }
-    
-    
-    
 
     move();
     

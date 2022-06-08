@@ -39,7 +39,7 @@ class PengButton{
   
   void select() {
    _selected = !_selected; 
-   if( _selected){
+   if(_selected){
         _currentColor = _selectedColor;
     } else{
         _currentColor = _defaultColor;
