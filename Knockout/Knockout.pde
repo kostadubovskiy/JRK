@@ -85,28 +85,34 @@ void setup() {
        }
      }
   }*/
-  /*
+  ///*
   // DIS THE ONE WE ARE WORKING ON :::::
   for ( Penguin p : pengs ) { // given a penguin
-    int cycles = 0;
-    int minCycles = cycles + 1;
-    boolean enteringLastCycle = false;
-    while(cycles < minCycles) { // keep comparing until p has no intersections
-      cycles += 1;
-      if (! enteringLastCycle) {
-        minCycles += 1;
-      }
+    //int cycles = 0;
+    //int minCycles = cycles + 1;
+    //boolean enteringLastCycle = false;
+    //while(cycles < minCycles) { // keep comparing until p has no intersections
+    //  cycles += 1;
+    //  if (! enteringLastCycle) {
+    //    minCycles += 1;
+    //  }
+    while(true) {
+      boolean toggled = false;
        for (Penguin neighbor : pengs) { // loop through all neighbor penguins
          if (!neighbor.equals(p)) { // make sure you're not looking at the same penguin, in which case it's always "on top of" itself
            if (dist(p.getPos().x, p.getPos().y, neighbor.getPos().x, neighbor.getPos().y) < 2 * p.getRadius() || dist(p.getPos().x, p.getPos().y, neighbor.getPos().x, neighbor.getPos().y) < 2 * neighbor.getRadius()) { // if they intersect
              PVector newPos = new PVector((float) ((600-p.getRadius())*(Math.random()) + 100 + p.getRadius()), (float) ((600-p.getRadius())*(Math.random()) + 100 + p.getRadius())); // make a new random pos
              p.setPos(newPos); // move the neighbor peng there and check again
+             toggled = true;
            }
          } else { continue; }
        }
+       if ( !toggled ) {
+         break;
+       }
      }
-     enteringLastCycle = true;
-  }*/
+     //enteringLastCycle = true;
+  }//*/
 }
 
 void draw() {
