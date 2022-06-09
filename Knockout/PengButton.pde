@@ -66,7 +66,10 @@ class PengButton{
     if(_selected) {
        _currentColor = _launchingColor;
        _launching = true;
-       
+       _targX = targX;
+       _targY = targY;
+       _indArrow.update(posX, posY, targX, targY);
+       _indArrow.show();
     }
   }
   
