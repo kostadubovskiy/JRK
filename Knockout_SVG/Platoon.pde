@@ -1,0 +1,77 @@
+import java.util.PriorityQueue;
+
+public class Platoon {
+  private int _team; 
+  private ArrayList<Penguin> _squadron;// PriorityQueue<Penguin> _squadron; // active team members
+  private ArrayList<Penguin> _drowned; // drowned/out penguins
+  
+  public Platoon(int team) {
+   _team = team;
+   _squadron = new ArrayList<Penguin>();// new  PriorityQueue<Penguin>(0, null);
+  }
+   
+  public boolean addPeng(Penguin newbie) {
+    if(newbie != null) {
+      if(newbie.getTeam() == _team) {
+        _squadron.add(newbie); 
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  public Penguin getNext() {
+    if( _squadron.size() > 0) {
+       Penguin next = _squadron.get(0);
+       _squadron.remove(0);
+       _squadron.add(next);
+       return next;
+    } 
+    return null;
+  }
+  
+  public Penguin getPeng(int ind) {
+    return _squadron.get(ind); 
+  }
+  
+  public Penguin peek() {
+    if( _squadron.size() > 0) {
+       Penguin next = _squadron.get(0);
+       return next;
+    } 
+    return null;
+  }
+   
+  public ArrayList<Penguin> getPlatoon() {// PriorityQueue<Penguin> getPlatoon() {
+     return _squadron; 
+  }
+  
+  public Penguin drown(Penguin p) {
+     for(Penguin potentialP : _squadron) {
+      if (potentialP.equals(p)) {
+       _drowned.add(p);
+       _squadron.remove(p);
+       p.sink();
+      }
+     }
+     return p;
+  }
+  
+  public Penguin whichPeng(float cX, float cY) {
+    for(Penguin p : _squadron) {
+      if (abs(cX - (p.getPos()).x) < p.getRadius() && abs(cY - (p.getPos()).y) < p.getRadius()) {
+        return p;
+      }
+    }
+    return null;
+  }
+  
+  public int getTeam() {
+   return _team; 
+  }
+  
+  public boolean isAlive(Penguin p) {
+    //redundant
+     return p.isSunken(); 
+  }
+}

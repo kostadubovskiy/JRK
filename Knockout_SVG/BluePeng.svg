@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
+<metadata>
+<vectornator:setting key="IsTimeLapseWatermarkDisabled" value="false"/>
+<vectornator:setting key="UndoHistoryDisabled" value="true"/>
+<vectornator:setting key="VNDimensionsVisible" value="true"/>
+<vectornator:setting key="VNSnapToGuides" value="true"/>
+<vectornator:setting key="WDCMYKEnabledKey" value="false"/>
+<vectornator:setting key="WDDisplayWhiteBackground" value="false"/>
+<vectornator:setting key="WDDynamicGuides" value="false"/>
+<vectornator:setting key="WDGuidesVisible" value="true"/>
+<vectornator:setting key="WDIsolateActiveLayer" value="false"/>
+<vectornator:setting key="WDOutlineMode" value="false"/>
+<vectornator:setting key="WDRulersVisible" value="true"/>
+<vectornator:setting key="WDSnapToEdges" value="false"/>
+<vectornator:setting key="WDSnapToGrid" value="false"/>
+<vectornator:setting key="WDSnapToPoints" value="false"/>
+<vectornator:setting key="WDUnits" value="Pixels"/>
+</metadata>
+<defs/>
+<g id="Layer-1" vectornator:layerName="Layer 1">
+<g opacity="1">
+<path d="M511.937 0C229.175 8.16493e-05 0 229.174 0 511.937C0.000151726 687.087 88.0867 841.641 222.232 933.953C281.126 831.458 391.39 762.262 518.083 762.262C642.154 762.262 750.416 828.679 810.17 927.683C939.467 834.753 1024 683.32 1024 511.937C1024 229.175 794.7 0 511.937 0Z" fill="#e3f0f7" fill-rule="evenodd" opacity="1" stroke="none"/>
+<path d="M518.083 762.262C391.39 762.262 281.126 831.458 222.232 933.953C304.653 990.67 404.324 1024 511.937 1024C623.317 1024 726.141 988.077 810.17 927.683C750.415 828.679 642.154 762.262 518.083 762.262Z" fill="#d1d9de" fill-rule="evenodd" opacity="1" stroke="none"/>
+<g opacity="1">
+<path d="M511.271 0C288.954 0.000320975 100.53 141.997 29.809 339.996C30.1389 339.89 30.6767 339.719 30.9378 339.619C31.0068 339.573 30.9961 339.538 31.0632 339.494C31.0764 339.489 31.1865 339.497 31.1886 339.494C31.392 339.357 31.5192 339.358 31.6902 339.243L31.5648 339.118C31.5648 339.118 32.0595 338.87 32.0665 338.867C32.5353 338.567 33.1153 338.216 33.5714 337.989C33.713 337.918 33.8029 338.148 33.9477 338.114C40.8676 335.072 222.277 255.792 347.983 255.216C390.695 255.02 426.777 263.973 446.934 288.325C459.559 303.579 475.915 381.116 483.383 486.546C492.887 467.191 513.872 477.453 513.872 477.464C513.872 477.464 537.321 468.641 545.658 489.79C552.996 383.029 563.671 303.796 576.486 288.325C596.632 263.984 632.725 255.042 675.437 255.216C802.04 255.796 985.934 336.545 990.35 338.491C990.403 338.514 991.854 339.117 991.855 339.118L991.855 339.243C991.94 339.281 992.024 339.192 992.106 339.243C992.24 339.327 992.345 339.299 992.482 339.369C921.576 141.719 733.338-0.00873097 511.271 0Z" fill="#2b3941" fill-rule="evenodd" opacity="1" stroke="none"/>
+<path d="M513.872 471.626C513.872 471.626 462.692 472.436 484.895 498.558C507.099 524.681 519.888 525.172 541.833 498.558C563.777 471.945 513.872 471.626 513.872 471.626Z" fill="#d77e31" fill-rule="evenodd" opacity="1" stroke="none"/>
+<path d="M642.863 395.469C642.863 379.76 655.598 367.026 671.307 367.026C687.016 367.026 699.751 379.76 699.751 395.469C699.751 411.178 687.016 423.913 671.307 423.913C655.598 423.913 642.863 411.178 642.863 395.469Z" fill="#2b3941" fill-rule="evenodd" opacity="1" stroke="none"/>
+<path d="M318.57 395.469C318.57 379.76 331.305 367.026 347.014 367.026C362.723 367.026 375.457 379.76 375.457 395.469C375.457 411.178 362.723 423.913 347.014 423.913C331.305 423.913 318.57 411.178 318.57 395.469Z" fill="#2b3941" fill-rule="evenodd" opacity="1" stroke="none"/>
+</g>
+</g>
+</g>
+</svg>
