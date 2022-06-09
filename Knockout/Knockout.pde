@@ -165,7 +165,7 @@ void draw() {
         
         if(_clickL && !_clickC && !_clickSelect) { // if it could still be a launch click but definitely not a complete-turn click
           for(Penguin launching : _currSelec) {
-            launching.getInd().launch(); // execute launch on those penguins who are in _currSelec, set launching bool in PB to be true, set color white
+            launching.getInd().launch(launching.getPos().x, launching.getPos().y, mouseX, mouseY); // execute launch on those penguins who are in _currSelec, set launching bool in PB to be true, set color white
             launching.setTarget(new PVector(mouseX - launching.getPos().x, mouseY - launching.getPos().y)); // set temp displacement vector
           }
           _currSelec.clear(); // clear currSelec since we've made a launch decision, they'll have to reselect and everything if they choose to change it //<>//
@@ -248,7 +248,7 @@ void move() {
     }
     for (Penguin p : currTeam.getPlatoon()) { // this whole logic chunk just updates the set of currently selected penguins
       if (!p.getThaw()) { // if peng available
-        if (p.getInd().isSelected()) {
+        if (p.getInd().isSelected() && !p.getInd().isLaunching()) {
           _currSelec.add(p);
         }
         if (!p.getInd().isSelected() && _currSelec.contains(p)) {
