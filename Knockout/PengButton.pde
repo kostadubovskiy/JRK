@@ -2,18 +2,22 @@ class PengButton{
   float _x,_y;
   float _w,_h;
   boolean _selected;
+  boolean _launching;
   color _selectedColor;
   color _defaultColor;
   color _currentColor;
+  color _launchingColor;
 
-  PengButton(float x, float y, float w, float h, color dC, color sC){
+  PengButton(float x, float y, float w, float h, color dC, color sC, color lC){
     _x = x;
     _y = y;
     _w = w;
     _h = h;
     _selected = false;
+    _launching = false;
     _selectedColor = sC;
     _defaultColor = dC;
+    _launchingColor = lC;
     _currentColor = _defaultColor;
   }
 
@@ -27,9 +31,12 @@ class PengButton{
       _selected = !_selected;  
       if( _selected){
           _currentColor = _selectedColor;
-      } else{
+      } else {
           _currentColor = _defaultColor;
       }
+      if(_launching) {
+        _currentColor = _launchingColor;
+      } 
     }
   }
   
@@ -46,7 +53,17 @@ class PengButton{
     }
   }
   
-  void shootColor() {
-   _currentColor = color(255, 255, 255);
+  void launchColor() {
+   _currentColor = _launchingColor;
   }
-} 
+  
+  void maskColor() {
+    _currentColor = _defaultColor;
+  }
+  
+  void reset() {
+   _currentColor = _defaultColor;
+   _selected = false;
+   _launching = false;
+  }
+}

@@ -109,16 +109,17 @@ void draw() {
       
       if(_clickL && !_clickC && !_clickSelect) { // if it could still be a luaunch click but definitely not a complete-turn click
         for(Penguin launching : _currSelec) {
-          launching.getInd().shootColor();
+          launching.getInd().launchColor();
           launching.setTarget(new PVector(mouseX, mouseY));
         }
+        _currSelec.clear();
         _clickL = false;
       }
       
       _clickSelect = false;
       _clickC = false;
       _clickL = false;
-      _click = false; // reset general click
+      _click = false; // reset all clicks
     } else {
       _click = false;
       _clickStart = false;
@@ -126,22 +127,29 @@ void draw() {
       _clickL = false;
       _clickC = false;
     }
+     //<>//
+    move();
     
-    _moveComplete.display(); //<>//
+    _moveComplete.display();
     if(_moveComplete.isSelected()) {
      if(_activePlatoon == 0) {
       _zeroDone = true; 
+      for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
+        p.getInd().maskColor();
+        p.getInd().display(p.getPos().x, p.getPos().y);
+      }
       _activePlatoon += 1;
-      _moveComplete.select();
      } else {
        _oneDone = true;
+       for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
+          p.getInd().maskColor();
+          p.getInd().display(p.getPos().x, p.getPos().y);
+        }
        _activePlatoon -= 1;
-       _moveComplete.select();
      }
+     _moveComplete.change(false);
     }
 
-    move();
-    
     for (Penguin p : pengs) {
       if(onBerg(p.getPos())) {
         p.sink();
@@ -179,20 +187,24 @@ void move() {
         }
       }
     }
+    
   } 
   else {
     _currSelec.clear();
-    _moveComplete.select();
-    _activePlatoon += 1;
-    _activePlatoon = _activePlatoon % 2;
+    //_moveComplete.change(false);
+    //_activePlatoon += 1;
+    //_activePlatoon = _activePlatoon % 2;
   }
   if (_zeroDone && _oneDone) {
    for (Platoon t : platoons) {
     for (Penguin p : t.getPlatoon()) {
      if(p.getTarget() != null) {
-      p.setVelocity(p.getTarget());
+      //p.setVelocity(p.getTarget());
       p.setTarget(null);
+      p.getInd().maskColor();
+      p.getInd().display(p.getPos().x, p.getPos().y);
      }
+     p.getInd().reset();
     }
    }
    _zeroDone = false;

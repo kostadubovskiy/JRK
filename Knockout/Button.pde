@@ -48,6 +48,20 @@ class Button{
   }
   
   void select() {
-   _selected = !_selected; 
+   _selected = !_selected;
+     if( _selected){
+        _currentColor = _selectedColor;
+    } else{
+        _currentColor = _defaultColor;
+    }
+  } 
+ 
+  void change(boolean newState) {
+   _selected = newState; 
+     if( _selected){
+        _currentColor = _selectedColor;
+    } else{
+        _currentColor = _defaultColor;
+    }
   }
 } 

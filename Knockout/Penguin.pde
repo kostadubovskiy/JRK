@@ -23,9 +23,9 @@ public class Penguin {
     _team = team % 2;
     m = _radius*.1;
     if(_team == 0) {
-      _indicator = new PengButton(_position.x, _position.y, _radius * 2, _radius * 2, color(200, 50, 50), color(0));
+      _indicator = new PengButton(_position.x, _position.y, _radius * 2, _radius * 2, color(200, 50, 50), color(0), color(255));
     } else {
-      _indicator = new PengButton(_position.x, _position.y, _radius * 2, _radius * 2, color(50, 50, 200), color(0));
+      _indicator = new PengButton(_position.x, _position.y, _radius * 2, _radius * 2, color(50, 50, 200), color(0), color(255));
     }
     /*
     // more non-functional color assignments
