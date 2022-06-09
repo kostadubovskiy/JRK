@@ -11,7 +11,13 @@ Penguin[] pengs =  {
   new Penguin(0), 
   new Penguin(1),
   new Penguin(2),
-  new Penguin(3)
+  new Penguin(3),
+  new Penguin(4),
+  new Penguin(5), 
+  new Penguin(6),
+  new Penguin(7),
+  new Penguin(8),
+  new Penguin(9)
 };
 
 Platoon[] platoons = {
@@ -62,10 +68,17 @@ void setup() {
   start = new Button(width/2 - 150, height/2 - 60, 300, 120, 15, "Click to Start", color(85, 120, 130), color(100, 140, 155), 30);
   _moveComplete = new Button(width / 2 - 50, height - 75, 100, 50, 10, "Finish move", color(85, 120, 130), color(100, 140, 155), 20);
   start.display();
-  platoons[0].addPeng(pengs[0]);
-  platoons[1].addPeng(pengs[1]);
-  platoons[0].addPeng(pengs[2]);
-  platoons[1].addPeng(pengs[3]);
+  for(Penguin p : pengs) {
+    if(p.getTeam() % 2  == 0) {
+      platoons[0].addPeng(p);
+    } else {
+      platoons[1].addPeng(p);
+    }
+  }
+  //platoons[0].addPeng(pengs[0]);
+  //platoons[1].addPeng(pengs[1]);
+  //platoons[0].addPeng(pengs[2]);
+  //platoons[1].addPeng(pengs[3]);
   
   // Respawn until no intersections
   /*
@@ -155,7 +168,7 @@ void draw() {
             _moveComplete.clicked(mouseX, mouseY); 
             boolean post = _moveComplete.isSelected();
             if(pre != post) {
-               _clickL = false;
+               _clickL = false; //<>//
                _clickSelect = false;
                _currSelec.clear();
             } else {
@@ -168,7 +181,7 @@ void draw() {
             launching.getInd().launch(launching.getPos().x, launching.getPos().y, mouseX, mouseY); // execute launch on those penguins who are in _currSelec, set launching bool in PB to be true, set color white
             launching.setTarget(new PVector(mouseX - launching.getPos().x, mouseY - launching.getPos().y)); // set temp displacement vector
           }
-          _currSelec.clear(); // clear currSelec since we've made a launch decision, they'll have to reselect and everything if they choose to change it //<>//
+          _currSelec.clear(); // clear currSelec since we've made a launch decision, they'll have to reselect and everything if they choose to change it
           _clickL = false;
         }
         
