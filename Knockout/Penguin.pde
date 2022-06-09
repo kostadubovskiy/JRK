@@ -7,7 +7,7 @@ public class Penguin {
   private boolean _sunken;
   private boolean _thawed = true;
   private double _distanceToDeath;
-  private float _accelConst = 0.00625;
+  private float _accelConst = 0.00625 * 2.0;
   private PVector[] _neighbors;
   private PVector _target;
   private PShape _peng;
@@ -15,7 +15,7 @@ public class Penguin {
   
   public Penguin(int team) {
     // default peng given a team to assign to
-    _radius = 30; // arbitrary choice for penguin's radius
+    _radius = 20; // arbitrary choice for penguin's radius
     _velocity = new PVector(0, 0);// new PVector((float) (Math.random() * 5), (float) (Math.random() * 5)); // start at _ velocity
     _position = new PVector(400, 400);// new PVector((float) ((600-_radius)*(Math.random()) + 100 + _radius), (float) ((600-_radius)*(Math.random()) + 100 + _radius));
     //_sunken = false;
@@ -224,12 +224,16 @@ public class Penguin {
     _position.add(_velocity);
     _velocity.x -= _accelConst*_velocity.x;
     _velocity.y -= _accelConst*_velocity.y;
-    if(abs(_velocity.x) < 0.50000000000000001 * _accelConst) {
+    if(_velocity.mag() < 0.75000000000000001 * _accelConst) {
+      _velocity.x = 0;
+      _velocity.y = 0;
+    }/*
+    if(abs(_velocity.x) < 0.75000000000000001 * _accelConst) {
       _velocity.x = 0;
     }
-    if(abs(_velocity.y) < 0.50000000000000001 * _accelConst) {
+    if(abs(_velocity.y) < 0.75000000000000001 * _accelConst) {
       _velocity.y = 0;
-    }
+    }*/
     //if(_target != null && !_velocity.equals(new PVector(0, 0))) {
     //  float force = 0.005 * _target.mag();
     //  _accelConst = force / _weight;
