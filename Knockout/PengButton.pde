@@ -8,9 +8,10 @@ class PengButton{
   color _defaultColor;
   color _currentColor;
   color _launchingColor;
+  Penguin _father;
   pengArrow _indArrow;
 
-  PengButton(float x, float y, float r, color dC, color sC, color lC){
+  PengButton(float x, float y, float r, color dC, color sC, color lC, Penguin father){
     _x = x;
     _y = y;
     _r = r;
@@ -22,6 +23,7 @@ class PengButton{
     _currentColor = _defaultColor;
     _indArrow = new pengArrow(x, y);
     _indArrow.hide();
+    _father = father;
   }
 
   void display(float currX, float currY){
@@ -49,6 +51,7 @@ class PengButton{
           _launching = false; // ensure we are not launching
           _targX = _x;
           _targY = _y;
+          _father.setTarget(null);
           _indArrow.hide();
       }
     }
