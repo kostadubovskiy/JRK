@@ -50,7 +50,7 @@ boolean _oneDone = false; // """"" one """""
 
 void setup() {
   size(800, 800);
-  frameRate(1080);
+  frameRate(480);
   
   // svgs:
   //pengs[0].setPeng(loadShape("RedPeng.svg"));
@@ -179,7 +179,7 @@ void draw() {
         if(_clickL && !_clickC && !_clickSelect) { // if it could still be a launch click but definitely not a complete-turn click
           for(Penguin launching : _currSelec) {
             launching.getInd().launch(launching.getPos().x, launching.getPos().y, mouseX, mouseY); // execute launch on those penguins who are in _currSelec, set launching bool in PB to be true, set color white
-            launching.setTarget(new PVector((mouseX - launching.getPos().x), (mouseY - launching.getPos().y))); // set temp displacement vector
+            launching.setTarget(new PVector(mouseX - launching.getPos().x, mouseY - launching.getPos().y)); // set temp displacement vector
           }
           _currSelec.clear(); // clear currSelec since we've made a launch decision, they'll have to reselect and everything if they choose to change it
           _clickL = false;

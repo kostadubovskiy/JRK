@@ -7,7 +7,7 @@ public class Penguin {
   private boolean _sunken;
   private boolean _thawed = true;
   private double _distanceToDeath;
-  private float _accelConst = 0.00625;
+  private float _accelConst;
   private PVector[] _neighbors;
   private PVector _target;
   private PShape _peng;
@@ -22,9 +22,9 @@ public class Penguin {
     _team = team % 2;
     m = _radius*.1;
     if(_team == 0) {
-      _indicator = new PengButton(_position.x, _position.y, _radius, color(200, 50, 50), color(0, 0, 0), color(255, 255, 255), this);
+      _indicator = new PengButton(_position.x, _position.y, _radius, color(200, 50, 50, 75), color(0, 0, 0, 75), color(255, 255, 255, 75), this);
     } else {
-      _indicator = new PengButton(_position.x, _position.y, _radius, color(50, 50, 200), color(0, 0, 0), color(255, 255, 255), this);
+      _indicator = new PengButton(_position.x, _position.y, _radius, color(50, 50, 200, 75), color(0, 0, 0, 75), color(255, 255, 255, 75), this);
     }
     /*
     // more non-functional color assignments
@@ -221,18 +221,18 @@ public class Penguin {
   
   void update() {
     _position.add(_velocity);
-    _velocity.x -= _accelConst*_velocity.x;
-    _velocity.y -= _accelConst*_velocity.y;
-    if(abs(_velocity.x) < 0.50000000000000001 * _accelConst) {
+    _velocity.x -= _accelConst*cos(_velocity.heading());
+    _velocity.y -= _accelConst*sin(_velocity.heading());
+    if(abs(_velocity.x) < .500001 * _accelConst) {
       _velocity.x = 0;
     }
-    if(abs(_velocity.y) < 0.50000000000000001 * _accelConst) {
+    if(abs(_velocity.y) < .500001 * _accelConst) {
       _velocity.y = 0;
     }
-    //if(_target != null && !_velocity.equals(new PVector(0, 0))) {
-    //  float force = 0.005 * _target.mag();
-    //  _accelConst = force / _weight;
-    //}
+    if(_target != null && !_velocity.equals(new PVector(0, 0))) {
+      float force = 0.005 * _target.mag();
+      _accelConst = force / _weight;
+    }
   }
   
   void display() {
