@@ -168,7 +168,7 @@ void draw() {
             launching.getInd().launch(); // execute launch on those penguins who are in _currSelec, set launching bool in PB to be true, set color white
             launching.setTarget(new PVector(mouseX - launching.getPos().x, mouseY - launching.getPos().y)); // set temp displacement vector
           }
-          _currSelec.clear(); // clear currSelec since we've  //<>//
+          _currSelec.clear(); // clear currSelec since we've made a launch decision, they'll have to reselect and everything if they choose to change it //<>//
           _clickL = false;
         }
         
