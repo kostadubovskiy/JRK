@@ -1,8 +1,8 @@
 import java.util.*;
 
 /**
-  * fix the selection click so it only selects when inside penguin
-  * 
+  * fix the selection click so it only selects when inside penguin -- DONE
+  * fix the issue that you can only select and fire a penguin once, once it's fired it cannot be selected again.
 */
 
 Penguin[] pengs =  { 
@@ -78,7 +78,8 @@ void draw() {
        _clickC = false;
        _clickSelect = false;
     }
-  } else {
+  } 
+  else {
     background(100, 165, 200);
     berg.update();
     berg.display(); // update and display iceberg and background
@@ -89,10 +90,10 @@ void draw() {
           p.getInd().clicked(mouseX, mouseY); // check to see if it was a penguin that was clicked
           boolean post = p.getInd().isSelected();
           if (pre != post) { // if cond changed, then it was a selection click
-           _clickL = false; // it was a sClick so reset launch click
-           _clickC = false; // it was a sClick so reset complete-turn click
-        } else {
-           _clickSelect = false;  // if it wasn't a selection click, rule that out and reset it
+            _clickL = false; // it was a sClick so reset launch click
+            _clickC = false; // it was a sClick so reset complete-turn click
+          } else {
+            _clickSelect = false;  // if it wasn't a selection click, rule that out and reset it
         }
        }
       
@@ -122,12 +123,6 @@ void draw() {
       _clickC = false;
       _clickL = false;
       _click = false; // reset all clicks
-    } else {
-      _click = false;
-      _clickStart = false;
-      _clickSelect = false;
-      _clickL = false;
-      _clickC = false;
     }
      //<>//
     move(); // execute a move
