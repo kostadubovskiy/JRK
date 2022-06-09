@@ -23,8 +23,8 @@ class PengButton{
   void display(float currX, float currY){
     fill( _currentColor);
     ellipse( currX, currY, 2 * _r, 2 * _r);
-    _x = currX;
-    _y = currY;
+    _x = currX; // update pos variables
+    _y = currY; // update pos variables
   }
 
   void clicked(int mx, int my){

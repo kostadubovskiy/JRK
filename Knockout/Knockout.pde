@@ -2,7 +2,7 @@ import java.util.*;
 
 /**
   * fix the selection click so it only selects when inside penguin -- DONE
-  * fix the issue that you can only select and fire a penguin once, once it's fired it cannot be selected again.
+  * fix the issue that you can only select and fire a penguin once, once it's fired it cannot be selected again. -- DONE 
 */
 
 Penguin[] pengs =  { 
