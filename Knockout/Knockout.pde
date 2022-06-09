@@ -279,7 +279,7 @@ void move() {
    for (Platoon t : platoons) {
     for (Penguin p : t.getPlatoon()) { // for all pengs
      if(p.getTarget() != null) {
-      p.setVelocity(0.005 * p.getTarget().x, 0.005 * p.getTarget().y); // set velocity to a scalar * displacement vector
+      p.setVelocity(0.00625 * p.getTarget().x, 0.00625 * p.getTarget().y); // set velocity to a scalar * displacement vector
       p.setTarget(null); // reset buffer velocity var
       p.getInd().maskColor(); // mask them
       //p.getInd().display(p.getPos().x, p.getPos().y);
