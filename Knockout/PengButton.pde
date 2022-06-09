@@ -1,6 +1,6 @@
 class PengButton{
   float _x,_y;
-  float _w,_h;
+  float _r;
   boolean _selected;
   boolean _launching;
   color _selectedColor;
@@ -8,11 +8,10 @@ class PengButton{
   color _currentColor;
   color _launchingColor;
 
-  PengButton(float x, float y, float w, float h, color dC, color sC, color lC){
+  PengButton(float x, float y, float r, color dC, color sC, color lC){
     _x = x;
     _y = y;
-    _w = w;
-    _h = h;
+    _r = r;
     _selected = false;
     _launching = false;
     _selectedColor = sC;
@@ -23,20 +22,21 @@ class PengButton{
 
   void display(float currX, float currY){
     fill( _currentColor);
-    ellipse( currX, currY, _w, _h);
+    ellipse( currX, currY, 2 * _r, 2 * _r);
   }
 
   void clicked(int mx, int my){
-    if( dist(_x, _y, mx, my) < dist(0, 0, _h,_w) ){
-      _selected = !_selected;  
-      if( _selected){
-          _currentColor = _selectedColor;
-      } else {
-          _currentColor = _defaultColor;
+    if( dist(_x, _y, mx, my) < dist(0, 0, _r / 2, _r / 2) ){ // if the inputted coords(they'll be the mouseXY of a registered click
+      _selected = !_selected; // flip _selected state
+      if( _selected) { // if we just selected
+          _currentColor = _selectedColor; // make it black(indicate that it has been selected)
+          if(_launching) { // if we are launching, given that we are selecting
+            _currentColor = _launchingColor;
+          }
+      } else { // if we just deselected
+          _currentColor = _defaultColor; // reset color
+          _launching = false; // ensure we are not launching
       }
-      if(_launching) {
-        _currentColor = _launchingColor;
-      } 
     }
   }
   
@@ -44,17 +44,15 @@ class PengButton{
     return _selected;
   }
   
-  void select() {
-   _selected = !_selected; 
-   if(_selected){
-        _currentColor = _selectedColor;
-    } else{
-        _currentColor = _defaultColor;
-    }
+  boolean isLaunching() {
+    return _launching;
   }
   
-  void launchColor() {
-   _currentColor = _launchingColor;
+  void launch() {
+    if(_selected) {
+       _currentColor = _launchingColor;
+       _launching = true;
+    }
   }
   
   void maskColor() {

@@ -1,10 +1,5 @@
 import java.util.*;
 
-/**
-  * fix the selection click so it only selects when inside penguin
-  * 
-*/
-
 Penguin[] pengs =  { 
   new Penguin(0), 
   new Penguin(1),
@@ -86,7 +81,7 @@ void draw() {
     if(_click) { // if a click is registered at all
        for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
           boolean pre = p.getInd().isSelected();
-          p.getInd().clicked(mouseX, mouseY); // check to see if it was a penguin that was clicked
+          (p.getInd()).clicked(mouseX, mouseY); // check to see if it was a penguin that was clicked
           boolean post = p.getInd().isSelected();
           if (pre != post) { // if cond changed, then it was a selection click
            _clickL = false; // it was a sClick so reset launch click
@@ -95,6 +90,10 @@ void draw() {
            _clickSelect = false;  // if it wasn't a selection click, rule that out and reset it
         }
        }
+       
+       //if(!_moveComplete.isSelected()) { // if still moving
+      
+      //}
       
        if(_clickC && !_clickSelect) { // if the type of click has been narrowed down to a complete or a launch click 
           boolean pre = _moveComplete.isSelected(); 
@@ -103,18 +102,17 @@ void draw() {
           if(pre != post) {
              _clickL = false;
              _clickSelect = false;
-             _currSelec.clear();
           } else {
             _clickC = false; 
           }
       }
       
-      if(_clickL && !_clickC && !_clickSelect) { // if it could still be a launch click but definitely not a complete-turn click
+      if(_clickL && !_clickC && !_clickSelect) { // if it could still be a luaunch click but definitely not a complete-turn click
         for(Penguin launching : _currSelec) {
-          launching.getInd().launch(); // execute launch on those penguins who are in _currSelec, set launching bool in PB to be true, set color white
-          launching.setTarget(new PVector(mouseX - launching.getPos().x, mouseY - launching.getPos().y)); // set temp displacement vector
+          launching.getInd().launchColor();
+          launching.setTarget(new PVector(mouseX - launching.getPos().x, mouseY - launching.getPos().y));
         }
-        _currSelec.clear(); // clear currSelec since we've 
+        _currSelec.clear();
         _clickL = false;
       }
       
@@ -130,30 +128,30 @@ void draw() {
       _clickC = false;
     }
      //<>//
-    move(); // execute a move
+    move();
     
-    _moveComplete.display(); // display the "end turn" button
-    if(_moveComplete.isSelected()) { // if it has been pressed
-     if(_activePlatoon == 0) { // if curr platoon was 0th team
-      _zeroDone = true;  // set 0th team to be done w their turn
+    _moveComplete.display();
+    if(_moveComplete.isSelected()) {
+     if(_activePlatoon == 0) {
+      _zeroDone = true; 
       for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
-        p.getInd().maskColor(); // change appearance, but not internal states/booleans
-        //p.getInd().display(p.getPos().x, p.getPos().y);
+        p.getInd().maskColor();
+        p.getInd().display(p.getPos().x, p.getPos().y);
       }
-      _activePlatoon += 1; // increment turn
-     } else {// if curr platoon was 1st team
-       _oneDone = true; // set 1st team to be done w their turn
+      _activePlatoon += 1;
+     } else {
+       _oneDone = true;
        for(Penguin p : platoons[_activePlatoon].getPlatoon()) {
-          p.getInd().maskColor(); // change appearance, but not internal states/booleans
-          //p.getInd().display(p.getPos().x, p.getPos().y);
+          p.getInd().maskColor();
+          p.getInd().display(p.getPos().x, p.getPos().y);
         }
-       _activePlatoon -= 1; // increment turn
+       _activePlatoon -= 1;
      }
-     _moveComplete.change(false); // reset end-turn button
-     //_currSelec.clear();
+     _moveComplete.change(false);
+     _currSelec.clear();
     }
 
-    for (Penguin p : pengs) { // update stuff and sink if necessary
+    for (Penguin p : pengs) {
       if(onBerg(p.getPos())) {
         p.sink();
       }
@@ -164,7 +162,7 @@ void draw() {
       }
     }
     
-    for (int i = 0; i < pengs.length; i++) { // check for bounces
+    for (int i = 0; i < pengs.length; i++) {
       for (int j = i + 1; j < pengs.length; j++) {
         pengs[i].checkCollision(pengs[j]);
       }
@@ -180,35 +178,35 @@ void move() {
     Platoon currTeam = platoons[_activePlatoon];
     currTeam.getPeng(0).setThaw(false);
     currTeam.getPeng(1).setThaw(false);
-    for (Penguin p : currTeam.getPlatoon()) { // this whole logic chunk just updates the set of currently selected penguins
-      if (!p.getThaw()) { // if peng available
+    for (Penguin p : currTeam.getPlatoon()) {
+      if (!p.getThaw()) {
         if (p.getInd().isSelected()) {
           _currSelec.add(p);
         }
         if (!p.getInd().isSelected() && _currSelec.contains(p)) {
-          p.setTarget(null);
-          // p.getInd().reset();
           _currSelec.remove(p);
         }
       }
     }
+    
   } 
-  if (_zeroDone && _oneDone) { // if both moves have completed
-  // the great reset
-    _zeroDone = false;
-   _oneDone = false;
+  else {
+    _currSelec.clear();
+  }
+  if (_zeroDone && _oneDone) {
    for (Platoon t : platoons) {
-    for (Penguin p : t.getPlatoon()) { // for all pengs
+    for (Penguin p : t.getPlatoon()) {
      if(p.getTarget() != null) {
-      p.setVelocity(0.005 * p.getTarget().x, 0.005 * p.getTarget().y); // set velocity to a scalar * displacement vector
-      p.setTarget(null); // reset buffer velocity var
-      p.getInd().maskColor(); // mask them
-      //p.getInd().display(p.getPos().x, p.getPos().y);
+      p.setVelocity((float) Math.tanh(p.getTarget().x), (float) Math.tanh(p.getTarget().y));
+      p.setTarget(null);
+      p.getInd().maskColor();
+      p.getInd().display(p.getPos().x, p.getPos().y);
      }
-     p.getInd().reset(); // reset pengButton object, then _launching and _selected are false, color becomes default
+     p.getInd().reset();
     }
    }
-   //_currSelec.clear();
+   _zeroDone = false;
+   _oneDone = false;
   }
 }
 

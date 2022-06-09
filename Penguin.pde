@@ -11,6 +11,7 @@ public class Penguin {
   private PVector[] _neighbors;
   private PVector _target;
   private PShape _peng;
+  private boolean _selected = false;
   private PengButton _indicator;
   
   public Penguin(int team) {
@@ -22,9 +23,9 @@ public class Penguin {
     _team = team % 2;
     m = _radius*.1;
     if(_team == 0) {
-      _indicator = new PengButton(_position.x, _position.y, _radius, color(200, 50, 50, 75), color(0, 0, 0, 75), color(255, 255, 255, 75));
+      _indicator = new PengButton(_position.x, _position.y, _radius * 2, _radius * 2, color(200, 50, 50, 75), color(0, 0, 0, 75), color(255, 255, 255, 75));
     } else {
-      _indicator = new PengButton(_position.x, _position.y, _radius, color(50, 50, 200, 75), color(0, 0, 0, 75), color(255, 255, 255, 75));
+      _indicator = new PengButton(_position.x, _position.y, _radius * 2, _radius * 2, color(50, 50, 200, 75), color(0, 0, 0, 75), color(255, 255, 255, 75));
     }
     /*
     // more non-functional color assignments
@@ -38,6 +39,10 @@ public class Penguin {
   
   public int getTeam() {
     return _team;
+  }
+  
+  public void select(boolean setter) {
+   _selected = setter; 
   }
 
   public double getWeight() {
@@ -220,7 +225,6 @@ public class Penguin {
   }
   
   void update() {
-     _position.add(_velocity);
     _velocity.x -= _accelConst*cos(_velocity.heading());
     _velocity.y -= _accelConst*sin(_velocity.heading());
     if(abs(_velocity.x) < .500001 * _accelConst) {
@@ -229,6 +233,7 @@ public class Penguin {
     if(abs(_velocity.y) < .500001 * _accelConst) {
       _velocity.y = 0;
     }
+    _position.add(_velocity);
   }
   
   void display() {
@@ -239,6 +244,11 @@ public class Penguin {
     }
     //translate(_position.x, _position.y);
     //shape(_peng);
+    if(_selected) {
+      fill(0);
+    } else {
+      noStroke();
+    }
     _indicator.display(_position.x, _position.y);
     //ellipse(_position.x, _position.y, 2* _radius, 2* _radius);
   }
