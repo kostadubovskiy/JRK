@@ -3,6 +3,8 @@ import java.util.*;
 /**
   * fix the selection click so it only selects when inside penguin -- DONE
   * fix the issue that you can only select and fire a penguin once, once it's fired it cannot be selected again. -- DONE 
+  * fix the issue when penguins spawn on top of each other
+  * 
 */
 
 Penguin[] pengs =  { 
@@ -63,6 +65,48 @@ void setup() {
   platoons[1].addPeng(pengs[1]);
   platoons[0].addPeng(pengs[2]);
   platoons[1].addPeng(pengs[3]);
+  
+  // Respawn until no intersections
+  /*
+    This basically fixes the position of a penguin and it respawns any of those intersecting with it until they are no longer intersecting with it
+    * issue: if you respawn a penguin onto a penguin who you already covered in the overarching for loop, then it won't be reset. 
+  */
+  /*for ( Penguin p : pengs ) { // given a penguin
+     for (Penguin neighbor : pengs) { // for a given neighbor penguin
+       while(true) { // keep respawning until they don't intersect
+         if (!neighbor.equals(p)) { // make sure you're not looking at the same penguin, in which case it's always "on top of" itself
+           if (dist(p.getPos().x, p.getPos().y, neighbor.getPos().x, neighbor.getPos().y) < 2 * p.getRadius() || dist(p.getPos().x, p.getPos().y, neighbor.getPos().x, neighbor.getPos().y) < 2 * neighbor.getRadius()) { // if they intersect
+             PVector newPos = new PVector((float) ((600-neighbor.getRadius())*(Math.random()) + 100 + neighbor.getRadius()), (float) ((600-neighbor.getRadius())*(Math.random()) + 100 + neighbor.getRadius())); // make a new random pos
+             neighbor.setPos(newPos); // move the neighbor peng there and check again
+           } else {
+              break;   
+           }
+         } else { break; }
+       }
+     }
+  }*/
+  /*
+  // DIS THE ONE WE ARE WORKING ON :::::
+  for ( Penguin p : pengs ) { // given a penguin
+    int cycles = 0;
+    int minCycles = cycles + 1;
+    boolean enteringLastCycle = false;
+    while(cycles < minCycles) { // keep comparing until p has no intersections
+      cycles += 1;
+      if (! enteringLastCycle) {
+        minCycles += 1;
+      }
+       for (Penguin neighbor : pengs) { // loop through all neighbor penguins
+         if (!neighbor.equals(p)) { // make sure you're not looking at the same penguin, in which case it's always "on top of" itself
+           if (dist(p.getPos().x, p.getPos().y, neighbor.getPos().x, neighbor.getPos().y) < 2 * p.getRadius() || dist(p.getPos().x, p.getPos().y, neighbor.getPos().x, neighbor.getPos().y) < 2 * neighbor.getRadius()) { // if they intersect
+             PVector newPos = new PVector((float) ((600-p.getRadius())*(Math.random()) + 100 + p.getRadius()), (float) ((600-p.getRadius())*(Math.random()) + 100 + p.getRadius())); // make a new random pos
+             p.setPos(newPos); // move the neighbor peng there and check again
+           }
+         } else { continue; }
+       }
+     }
+     enteringLastCycle = true;
+  }*/
 }
 
 void draw() {
@@ -173,8 +217,9 @@ void draw() {
 void move() {
   if (!_moveComplete.isSelected()){
     Platoon currTeam = platoons[_activePlatoon];
-    currTeam.getPeng(0).setThaw(false);
-    currTeam.getPeng(1).setThaw(false);
+    for(Penguin p : currTeam.getPlatoon()) {
+       p.setThaw(false);
+    }
     for (Penguin p : currTeam.getPlatoon()) { // this whole logic chunk just updates the set of currently selected penguins
       if (!p.getThaw()) { // if peng available
         if (p.getInd().isSelected()) {

@@ -17,7 +17,7 @@ public class Penguin {
     // default peng given a team to assign to
     _radius = 30; // arbitrary choice for penguin's radius
     _velocity = new PVector(0, 0);// new PVector((float) (Math.random() * 5), (float) (Math.random() * 5)); // start at _ velocity
-    _position = new PVector((float) ((600-_radius)*(Math.random()) + 100 + _radius), (float) ((600-_radius)*(Math.random()) + 100 + _radius));
+    _position = new PVector(400, 400);// new PVector((float) ((600-_radius)*(Math.random()) + 100 + _radius), (float) ((600-_radius)*(Math.random()) + 100 + _radius));
     //_sunken = false;
     _team = team % 2;
     m = _radius*.1;
