@@ -136,7 +136,7 @@ public class Penguin {
       float minDistance = _radius + other._radius;
   
       if (distanceVectMag < minDistance) {
-        float distanceCorrection = (minDistance-distanceVectMag)/1.9;
+        float distanceCorrection = (minDistance-distanceVectMag)/1.99;
         PVector d = distanceVect.copy();
         PVector correctionVector = d.normalize().mult(distanceCorrection);
         other._position.add(correctionVector);

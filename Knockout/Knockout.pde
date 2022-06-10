@@ -244,11 +244,12 @@ void draw() {
       }
     }
   } else {
-   background(40, 40, 40);
-   fill(250, 40, 30);
-   textSize(30);
-   textAlign(CENTER);
-   text("GAME OVER", 385, 385);
+    delay(1000);
+    background(40, 40, 40);
+    fill(250, 40, 30);
+    textSize(30);
+    textAlign(CENTER);
+    text("GAME OVER", 385, 385);
   }
 }
 
